@@ -7,7 +7,6 @@
 	import Benchmarks from '$components/sections/Benchmarks.svelte';
 	import Pricing from '$components/sections/Pricing.svelte';
 	import CTA from '$components/sections/CTA.svelte';
-	import Footer from '$components/layout/Footer.svelte';
 
 	let vh = $derived(typeof window !== 'undefined' ? window.innerHeight : 900);
 
@@ -18,7 +17,6 @@
 	let p4 = $derived(Math.max(0, Math.min(1, ($scrollY - 3 * vh) / (2 * vh))));
 	let p5 = $derived(Math.max(0, Math.min(1, ($scrollY - 4 * vh) / (2 * vh))));
 	let p6 = $derived(Math.max(0, Math.min(1, ($scrollY - 5 * vh) / (2 * vh))));
-	let p7 = $derived(Math.max(0, Math.min(1, ($scrollY - 6 * vh) / (2 * vh))));
 </script>
 
 <section
@@ -69,11 +67,4 @@
 	data-section="6"
 >
 	<CTA sectionProgress={p6} />
-</section>
-<section
-	class="sticky top-0 h-screen w-full overflow-hidden"
-	style="background: #f7f5f0; z-index: 8"
-	data-section="7"
->
-	<Footer />
 </section>

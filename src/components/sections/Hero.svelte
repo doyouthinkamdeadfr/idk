@@ -7,14 +7,25 @@
 	let canvasEl: HTMLCanvasElement;
 	let canvasInstance: HeroCanvas;
 	let headlineEl: HTMLSpanElement;
+	let showContent = $state(false);
+
+	$effect(() => {
+		if (!showContent && sectionProgress > 0.15) {
+			showContent = true;
+		}
+	});
 
 	onMount(() => {
 		canvasInstance = new HeroCanvas(canvasEl);
 
-		const chars = headlineEl.querySelectorAll('.char');
-		chars.forEach((char, i) => {
-			(char as HTMLElement).style.animation =
-				`slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.03 + 0.3}s both`;
+		$effect(() => {
+			if (showContent) {
+				const chars = headlineEl.querySelectorAll('.char');
+				chars.forEach((char, i) => {
+					(char as HTMLElement).style.animation =
+						`heroChar 0.3s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.02 + 0.15}s both`;
+				});
+			}
 		});
 
 		return () => canvasInstance.destroy();
@@ -26,10 +37,13 @@
 		<canvas bind:this={canvasEl} class="h-full w-full opacity-60"></canvas>
 	</div>
 
-	<div class="relative z-10 mx-auto w-full max-w-6xl px-8 md:px-16">
+	<div
+		class="relative z-10 mx-auto w-full max-w-6xl px-8 md:px-16"
+		style="opacity: {showContent ? 1 : 0}; transition: opacity 0.5s ease;"
+	>
 		<p
 			class="text-xs font-semibold tracking-[0.2em] text-accent-primary uppercase"
-			style="animation: slideUp 0.5s ease 0.1s both;"
+			style="animation: {showContent ? 'slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both' : 'none'}"
 		>
 			Supermemory
 		</p>
@@ -57,14 +71,14 @@
 		</h1>
 		<p
 			class="mt-6 max-w-xl text-lg leading-relaxed text-text-muted md:text-xl"
-			style="animation: slideUp 0.5s ease 0.6s both;"
+			style="animation: {showContent ? 'slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both' : 'none'}"
 		>
 			Instantly retrieve, augment, and generate answers grounded in your documents, code, and
 			knowledge base.
 		</p>
 		<div
 			class="mt-10 flex flex-wrap items-center gap-4"
-			style="animation: slideUp 0.5s ease 0.8s both;"
+			style="animation: {showContent ? 'slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both' : 'none'}"
 		>
 			<a
 				href="#cta"
@@ -87,7 +101,7 @@
 
 	<div
 		class="absolute bottom-10 left-1/2 -translate-x-1/2"
-		style="animation: fadeIn 0.8s ease 1.2s both;"
+		style="animation: {showContent ? 'fadeIn 0.8s ease 1s both' : 'none'}"
 	>
 		<div class="flex flex-col items-center gap-2">
 			<span class="text-[10px] tracking-[0.25em] text-text-muted uppercase">Scroll</span>

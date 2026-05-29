@@ -14,8 +14,7 @@
 		'var(--color-bg-primary)',
 		'var(--color-bg-warm)',
 		'var(--color-bg-primary)',
-		'var(--color-bg-warm)',
-		'var(--color-bg-primary)'
+		'var(--color-bg-warm)'
 	];
 
 	let bgStyle = $state(sectionBgs[0]);
