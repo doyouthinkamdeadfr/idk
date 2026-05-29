@@ -1,5 +1,5 @@
-<footer class="border-t border-border-subtle bg-bg-surface px-6 py-16 md:px-10">
-	<div class="mx-auto flex max-w-6xl flex-col gap-12 md:flex-row md:justify-between">
+<footer class="flex h-full w-full flex-col items-center justify-center px-6 md:px-10">
+	<div class="mx-auto flex w-full max-w-6xl flex-col gap-12 md:flex-row md:justify-between">
 		<div class="max-w-xs">
 			<a href="/" class="text-lg font-bold tracking-tight text-text-primary">supermemory</a>
 			<p class="mt-2 text-sm leading-relaxed text-text-muted">

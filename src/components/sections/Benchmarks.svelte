@@ -1,84 +1,87 @@
 <script lang="ts">
-	import Reveal from '$components/ui/Reveal.svelte';
-	import { onMount } from 'svelte';
 	import { tweened } from 'svelte/motion';
 	import { cubicOut } from 'svelte/easing';
+	import Reveal from '$components/ui/Reveal.svelte';
+	import TiltCard from '$components/ui/TiltCard.svelte';
 
-	let el: HTMLDivElement;
+	let { sectionProgress = 0 } = $props();
+
 	let started = $state(false);
 
 	const traditional = tweened(0, { duration: 1200, easing: cubicOut });
 	const supermemory = tweened(0, { duration: 1200, easing: cubicOut });
 
-	onMount(() => {
-		const obs = new IntersectionObserver(
-			([entry]) => {
-				if (entry.isIntersecting && !started) {
-					started = true;
-					$traditional = 2300;
-					$supermemory = 47;
-					obs.disconnect();
-				}
-			},
-			{ threshold: 0.3 }
-		);
-		obs.observe(el);
-		return () => obs.disconnect();
+	$effect(() => {
+		if (!started && sectionProgress > 0.4) {
+			started = true;
+			$traditional = 2300;
+			$supermemory = 47;
+		}
 	});
 </script>
 
-<section id="benchmarks" class="relative w-full bg-accent-primary/5 px-6 py-28 md:px-10 md:py-36">
-	<div class="mx-auto max-w-6xl">
-		<Reveal>
+<section
+	id="benchmarks"
+	class="relative flex min-h-screen w-full items-center bg-accent-primary/5 px-8 md:px-16"
+>
+	<div class="mx-auto w-full max-w-4xl">
+		<Reveal progress={sectionProgress}>
 			<div class="text-center">
-				<span class="text-xs font-semibold tracking-[0.2em] text-accent-primary uppercase"
-					>Speed Benchmarks</span
-				>
-				<h2 class="mt-3 text-3xl leading-tight font-bold md:text-4xl">
-					<span class="text-accent-primary">47 milliseconds</span> vs minutes
-				</h2>
-				<p class="mx-auto mt-4 max-w-xl text-base text-text-muted">
-					Real-world retrieval performance across 50,000+ document knowledge bases.
+				<p class="text-xs font-semibold tracking-[0.2em] text-accent-primary uppercase">
+					Speed Benchmarks
 				</p>
+				<h2 class="mt-4 text-4xl leading-tight font-bold md:text-5xl lg:text-6xl">
+					<span class="text-accent-primary">47ms</span> vs 2.3s
+				</h2>
 			</div>
+		</Reveal>
 
-			<div bind:this={el} class="mx-auto mt-16 max-w-2xl space-y-8">
-				<div>
-					<div class="flex items-center justify-between text-sm">
-						<span class="font-semibold text-text-muted">Traditional keyword search</span>
-						<span class="font-mono text-lg text-text-muted">
-							{($traditional / 1000).toFixed(1)}s
-						</span>
+		<Reveal progress={sectionProgress} stagger={0.08}>
+			<div class="mt-16 grid gap-12 md:grid-cols-2">
+				<TiltCard glowColor="136, 133, 124">
+					<div class="rounded-2xl bg-white p-10 shadow-sm transition-shadow duration-300">
+						<div class="text-sm font-semibold tracking-[0.1em] text-text-muted uppercase">
+							Traditional Search
+						</div>
+						<div class="mt-2 text-6xl font-bold text-text-muted/40 md:text-7xl">
+							{($traditional / 1000).toFixed(1)}<span class="text-3xl md:text-4xl">s</span>
+						</div>
+						<div class="mt-6 h-2 w-full overflow-hidden rounded-full bg-border-subtle">
+							<div
+								class="h-full rounded-full bg-text-muted/30 transition-all duration-100"
+								style="width: {Math.min(($traditional / 3000) * 100, 100)}%"
+							></div>
+						</div>
 					</div>
-					<div class="mt-2 h-4 w-full overflow-hidden rounded-full bg-border-subtle">
-						<div
-							class="h-full rounded-full bg-text-muted/40 transition-all duration-100"
-							style="width: {Math.min(($traditional / 3000) * 100, 100)}%"
-						></div>
-					</div>
-				</div>
+				</TiltCard>
 
-				<div>
-					<div class="flex items-center justify-between text-sm">
-						<span class="font-semibold text-accent-primary">Supermemory RAG</span>
-						<span class="font-mono text-lg font-bold text-accent-primary">
-							{$supermemory}ms
-						</span>
+				<TiltCard glowColor="232, 99, 74">
+					<div
+						class="rounded-2xl bg-white p-10 shadow-md shadow-accent-primary/10 transition-shadow duration-300"
+					>
+						<div class="text-sm font-semibold tracking-[0.1em] text-accent-primary uppercase">
+							Supermemory RAG
+						</div>
+						<div class="mt-2 text-6xl font-bold text-accent-primary md:text-7xl">
+							{$supermemory}<span class="text-3xl md:text-4xl">ms</span>
+						</div>
+						<div class="mt-6 h-2 w-full overflow-hidden rounded-full bg-border-subtle">
+							<div
+								class="h-full rounded-full bg-accent-primary transition-all duration-100"
+								style="width: {Math.min($supermemory / 200, 100)}%"
+							></div>
+						</div>
 					</div>
-					<div class="mt-2 h-4 w-full overflow-hidden rounded-full bg-border-subtle">
-						<div
-							class="h-full rounded-full bg-accent-primary transition-all duration-100"
-							style="width: {Math.min($supermemory / 200, 100)}%"
-						></div>
-					</div>
-				</div>
+				</TiltCard>
+			</div>
+		</Reveal>
 
-				<div class="rounded-xl border border-accent-primary/20 bg-accent-primary/5 p-6 text-center">
-					<div class="text-2xl font-bold text-accent-primary">
-						{$traditional > 0 && $supermemory > 0 ? Math.round($traditional / $supermemory) : 0}x
-					</div>
-					<p class="mt-1 text-sm text-text-muted">Faster than traditional search</p>
-				</div>
+		<Reveal progress={sectionProgress} stagger={0.16}>
+			<div class="mx-auto mt-8 max-w-xs rounded-full bg-accent-primary/10 px-8 py-4 text-center">
+				<span class="text-lg font-bold text-accent-primary">
+					{$traditional > 0 && $supermemory > 0 ? Math.round($traditional / $supermemory) : 0}x
+					faster
+				</span>
 			</div>
 		</Reveal>
 	</div>

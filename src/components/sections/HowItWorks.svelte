@@ -1,26 +1,21 @@
 <script lang="ts">
-	import Reveal from '$components/ui/Reveal.svelte';
 	import { onMount } from 'svelte';
+	import Reveal from '$components/ui/Reveal.svelte';
+
+	let { sectionProgress = 0 } = $props();
 
 	let steps = [
 		{
 			number: '01',
 			title: 'Connect',
-			desc: 'Link your documents, databases, code repos, and wiki. One integration, all your knowledge.',
-			icon: '🔗'
+			desc: 'Link your documents, databases, and repos. One integration.'
 		},
 		{
 			number: '02',
 			title: 'Retrieve',
-			desc: 'Ask in natural language. Supermemory instantly searches across every source with semantic understanding.',
-			icon: '⚡'
+			desc: 'Ask in natural language. Semantic search across every source.'
 		},
-		{
-			number: '03',
-			title: 'Answer',
-			desc: 'Get a coherent answer grounded in your data — with citations you can verify in one click.',
-			icon: '✅'
-		}
+		{ number: '03', title: 'Answer', desc: 'Get a grounded answer with citations in milliseconds.' }
 	];
 
 	let activeStep = $state(-1);
@@ -45,57 +40,56 @@
 	});
 </script>
 
-<section id="how-it-works" class="relative w-full px-6 py-28 md:px-10 md:py-36">
-	<div class="mx-auto max-w-6xl">
-		<Reveal>
+<section
+	id="how-it-works"
+	class="relative flex min-h-screen w-full items-center bg-bg-primary px-8 md:px-16"
+>
+	<div class="mx-auto w-full max-w-6xl">
+		<Reveal progress={sectionProgress}>
 			<div class="text-center">
-				<span class="text-xs font-semibold tracking-[0.2em] text-text-muted uppercase"
-					>How It Works</span
-				>
-				<h2 class="mt-3 text-3xl leading-tight font-bold md:text-4xl">
+				<p class="text-xs font-semibold tracking-[0.2em] text-text-muted uppercase">How It Works</p>
+				<h2 class="mt-4 text-4xl leading-tight font-bold md:text-5xl lg:text-6xl">
 					Three steps to instant answers
 				</h2>
-				<p class="mx-auto mt-4 max-w-xl text-base text-text-muted">
-					No configuration. No training. Just connect and ask.
-				</p>
 			</div>
+		</Reveal>
 
-			<div class="mt-16 grid gap-8 md:grid-cols-3">
+		<Reveal progress={sectionProgress} stagger={0.08}>
+			<div class="mt-16 grid gap-0 md:grid-cols-3">
 				{#each steps as step, i}
 					<div
 						bind:this={stepEls[i]}
 						data-step={i}
-						class="rounded-xl border p-8 transition-all duration-500 {activeStep >= i
-							? 'border-accent-primary/30 bg-accent-primary/5'
-							: 'border-border-subtle bg-bg-card'}"
+						class="relative p-8 transition-all duration-500 md:p-12"
 					>
 						<div
-							class="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg text-lg font-bold transition-all duration-500 {activeStep >=
+							class="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-full text-xl font-bold transition-all duration-500 {activeStep >=
 							i
 								? 'bg-accent-primary text-white'
-								: 'bg-text-muted/20 text-text-muted'}"
+								: 'bg-text-muted/10 text-text-muted'}"
 						>
 							{step.number}
 						</div>
-						<h3 class="text-xl font-semibold">{step.title}</h3>
+						<h3 class="text-2xl font-semibold">{step.title}</h3>
 						<p class="mt-3 text-sm leading-relaxed text-text-muted">{step.desc}</p>
+
+						{#if i < steps.length - 1}
+							<div
+								class="absolute top-1/2 right-0 hidden h-px w-8 -translate-y-1/2 bg-border-subtle md:block"
+							></div>
+						{/if}
 					</div>
 				{/each}
 			</div>
 
-			<div class="mt-8 hidden items-center justify-center md:flex">
-				<div class="flex h-1 w-full max-w-md items-center gap-0">
-					{#each steps as _, i}
-						<div
-							class="h-1 flex-1 transition-all duration-500 {activeStep >= i
-								? 'bg-accent-primary'
-								: 'bg-border-subtle'}"
-						></div>
-						{#if i < steps.length - 1}
-							<div class="w-2"></div>
-						{/if}
-					{/each}
-				</div>
+			<div class="mx-auto mt-4 flex h-1 w-full max-w-md items-center gap-2">
+				{#each steps as _, i}
+					<div
+						class="h-1 flex-1 rounded-full transition-all duration-500 {activeStep >= i
+							? 'bg-accent-primary'
+							: 'bg-border-subtle'}"
+					></div>
+				{/each}
 			</div>
 		</Reveal>
 	</div>

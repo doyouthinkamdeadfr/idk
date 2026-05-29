@@ -1,14 +1,10 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { scrollY } from '$lib/scroll';
 
 	let scrolled = $state(false);
 
-	onMount(() => {
-		const onScroll = () => {
-			scrolled = window.scrollY > 40;
-		};
-		window.addEventListener('scroll', onScroll, { passive: true });
-		return () => window.removeEventListener('scroll', onScroll);
+	scrollY.subscribe((y) => {
+		scrolled = y > 40;
 	});
 </script>
 

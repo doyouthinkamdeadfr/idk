@@ -1,32 +1,15 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	let { progress = 0, stagger = 0, class: className = '', children } = $props();
 
-	let { threshold = 0.2, class: className = '', children } = $props();
-
-	let el: HTMLDivElement;
-	let visible = $state(false);
-
-	onMount(() => {
-		const obs = new IntersectionObserver(
-			([entry]) => {
-				if (entry.isIntersecting) {
-					visible = true;
-					obs.disconnect();
-				}
-			},
-			{ threshold }
-		);
-		obs.observe(el);
-		return () => obs.disconnect();
+	let p = $derived.by(() => {
+		if (stagger >= 1) return 0;
+		return Math.max(0, Math.min(1, (progress - stagger) / (1 - stagger)));
 	});
+
+	let opacity = $derived(Math.sin(p * Math.PI));
+	let translateY = $derived(12 - 24 * p);
 </script>
 
-<div
-	bind:this={el}
-	class={className}
-	style="opacity: {visible ? 1 : 0}; transform: translateY({visible
-		? 0
-		: '24px'}); transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);"
->
+<div class={className} style="opacity: {opacity}; transform: translateY({translateY}px);">
 	{@render children()}
 </div>
