@@ -31,7 +31,7 @@ sources:
 - [x] Build verification
 
 ## Future
-- [ ] Deploy to Cloudflare Workers
+- [x] Deploy to Cloudflare Workers
 - [ ] Mobile 3D performance optimization (particle count, simplification)
 - [ ] Accessibility pass (aria labels for 3D text, screen reader fallbacks)
 - [ ] Refine camera path curves per section feel

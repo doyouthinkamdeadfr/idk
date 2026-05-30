@@ -5,6 +5,15 @@ description: Append-only chronological record of wiki actions
 
 # Wiki Log
 
+## [2026-05-30] deploy | Cloudflare Pages
+
+Deployed landing page to Cloudflare Pages:
+
+- Created Pages project `memory` at `https://memory-7o9.pages.dev`
+- wrangler v4.95.0 has bun compatibility issue — used v3.0.0 instead
+- Worker compiled with Pages Functions enabled, SSR confirmed
+- Static assets served with immutable caching
+
 ## [2026-05-28] init | LLM Wiki restructuring
 
 Restructured `memory/` to follow the LLM Wiki pattern:

@@ -1,7 +1,7 @@
 ---
 tags: [plan, architecture]
 created: 2026-05-28
-updated: 2026-05-28
+updated: 2026-05-30
 sources:
   - sessions/001-initial-setup.md
   - sessions/002-scope-raise.md
@@ -59,7 +59,7 @@ TextOverlay.svelte → project 3D anchors → position DOM text
 - Text muted: `#8888aa`
 
 ## Future Phases (post-landing-page)
-- Cloudflare deployment
+- ~~Cloudflare deployment~~ ✅ Deployed to `memory-7o9.pages.dev`
 - Mobile 3D optimization
 - Accessibility pass
 - Supabase auth + Polar.sh subscriptions

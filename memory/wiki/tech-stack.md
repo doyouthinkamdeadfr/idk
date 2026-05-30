@@ -35,6 +35,12 @@ sources:
 - **Render Loop**: Manual `requestAnimationFrame` in `Neon3DScene.svelte`
 - **Text**: HTML DOM elements projected to 3D coordinates via `Vector3.project()`
 
+## Deployment
+- **URL**: `https://memory-7o9.pages.dev`
+- **Project**: Cloudflare Pages `memory` (account: `ae024d7d4598a4e356f2df40f7060e56`)
+- **Wrangler**: v3.0.0 (v4.x has bun compatibility issues)
+- **Build**: `bun run build` → adapter-cloudflare generates `.svelte-kit/cloudflare`
+
 ## Color Palette (Cyberpunk)
 - Background: `#050508`
 - Surface: `#0a0a14`

@@ -36,6 +36,7 @@ updated: 2026-05-28
 | [Session 001 — Initial Setup](sessions/001-initial-setup.md) | Project scaffold, all sections built, initial deploy config | 2026-05-28 |
 | [Session 002 — All-In Visual Upgrade](sessions/002-scope-raise.md) | Rive animations, particle 3D, fluid typography, visual overhaul | 2026-05-28 |
 | [Session 003 — Immersive 3D Re-architecture](sessions/003-immersive-rearch.md) | Raw Three.js, camera spline, post-processing, particle morphing | 2026-05-28 |
+| [Session 004 — Deployment](sessions/004-deployment.md) | Cloudflare Pages deploy, wrangler v3 workaround | 2026-05-30 |
 
 ## Raw sources
 
@@ -43,4 +44,4 @@ See `../raw/` — no sources ingested yet.
 
 ---
 
-**Stats**: 6 wiki pages, 3 sessions, 0 components, 0 concepts, 0 raw sources
+**Stats**: 6 wiki pages, 4 sessions, 0 components, 0 concepts, 0 raw sources

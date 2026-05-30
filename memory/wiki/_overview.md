@@ -31,7 +31,7 @@ See [Decisions](decisions.md) (ADR-001 through ADR-008). Notable: raw Three.js o
 
 ## Status
 
-Phase 1 (landing page) is feature-complete. Pending: Cloudflare deployment, mobile 3D optimization, accessibility pass.
+Phase 1 (landing page) is feature-complete and **deployed** to [memory-7o9.pages.dev](https://memory-7o9.pages.dev). Pending: mobile 3D optimization, accessibility pass, Phase 2 (Supabase auth + Polar.sh subscriptions).
 
 ## Related
 
