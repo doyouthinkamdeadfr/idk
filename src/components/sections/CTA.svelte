@@ -18,7 +18,7 @@
 			</Reveal>
 			<Reveal progress={sectionProgress} stagger={0.08}>
 				<p class="mx-auto mt-6 max-w-lg text-base leading-relaxed text-text-muted md:text-lg">
-					Join thousands of teams using Supermemory to retrieve, augment, and generate insights
+					Join thousands of teams using Memory to retrieve, augment, and generate insights
 					from their data.
 				</p>
 			</Reveal>
@@ -48,7 +48,7 @@
 	<footer class="w-full border-t border-border-subtle/50 py-12">
 		<div class="mx-auto flex w-full max-w-6xl flex-col gap-10 md:flex-row md:justify-between">
 			<div class="max-w-xs">
-				<a href="/" class="text-lg font-bold tracking-tight text-text-primary">supermemory</a>
+				<a href="/" class="text-lg font-bold tracking-tight text-text-primary">Memory</a>
 				<p class="mt-2 text-sm leading-relaxed text-text-muted">
 					Answers from your data. In milliseconds.
 				</p>
@@ -98,7 +98,7 @@
 			</div>
 		</div>
 		<p class="mt-10 text-center text-xs text-text-muted">
-			&copy; 2026 supermemory. answers in milliseconds.
+			&copy; 2026 Memory. answers in milliseconds.
 		</p>
 	</footer>
 </section>

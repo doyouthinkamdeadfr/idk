@@ -45,7 +45,7 @@
 			class="text-xs font-semibold tracking-[0.2em] text-accent-primary uppercase"
 			style="animation: {showContent ? 'slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both' : 'none'}"
 		>
-			Supermemory
+			Memory
 		</p>
 		<h1
 			class="mt-6 max-w-4xl text-5xl leading-tight font-bold tracking-tight md:text-7xl lg:text-8xl"

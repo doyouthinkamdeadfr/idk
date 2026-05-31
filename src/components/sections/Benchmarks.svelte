@@ -9,13 +9,13 @@
 	let started = $state(false);
 
 	const traditional = tweened(0, { duration: 1200, easing: cubicOut });
-	const supermemory = tweened(0, { duration: 1200, easing: cubicOut });
+	const memoryRag = tweened(0, { duration: 1200, easing: cubicOut });
 
 	$effect(() => {
 		if (!started && sectionProgress > 0.4) {
 			started = true;
 			$traditional = 2300;
-			$supermemory = 47;
+			$memoryRag = 47;
 		}
 	});
 </script>
@@ -60,15 +60,15 @@
 						class="rounded-2xl bg-white p-10 shadow-md shadow-accent-primary/10 transition-shadow duration-300"
 					>
 						<div class="text-sm font-semibold tracking-[0.1em] text-accent-primary uppercase">
-							Supermemory RAG
+							Memory RAG
 						</div>
 						<div class="mt-2 text-6xl font-bold text-accent-primary md:text-7xl">
-							{$supermemory}<span class="text-3xl md:text-4xl">ms</span>
+							{$memoryRag}<span class="text-3xl md:text-4xl">ms</span>
 						</div>
 						<div class="mt-6 h-2 w-full overflow-hidden rounded-full bg-border-subtle">
 							<div
 								class="h-full rounded-full bg-accent-primary transition-all duration-100"
-								style="width: {Math.min($supermemory / 200, 100)}%"
+								style="width: {Math.min($memoryRag / 200, 100)}%"
 							></div>
 						</div>
 					</div>
@@ -79,7 +79,7 @@
 		<Reveal progress={sectionProgress} stagger={0.16}>
 			<div class="mx-auto mt-8 max-w-xs rounded-full bg-accent-primary/10 px-8 py-4 text-center">
 				<span class="text-lg font-bold text-accent-primary">
-					{$traditional > 0 && $supermemory > 0 ? Math.round($traditional / $supermemory) : 0}x
+					{$traditional > 0 && $memoryRag > 0 ? Math.round($traditional / $memoryRag) : 0}x
 					faster
 				</span>
 			</div>
