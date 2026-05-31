@@ -1,12 +1,37 @@
-// See https://svelte.dev/docs/kit/types#app.d.ts
-// for information about these interfaces
 declare global {
 	namespace App {
-		// interface Error {}
-		// interface Locals {}
-		// interface PageData {}
-		// interface PageState {}
-		// interface Platform {}
+		interface Locals {
+			session: {
+				user: {
+					id: string;
+					email: string;
+					name: string;
+					image?: string | null;
+				};
+				session: {
+					id: string;
+					expiresAt: Date;
+					token: string;
+					createdAt: Date;
+					updatedAt: Date;
+					userId: string;
+					ipAddress?: string | null;
+					userAgent?: string | null;
+				};
+			} | null;
+			user: {
+				id: string;
+				email: string;
+				name: string;
+				image?: string | null;
+			} | null;
+		}
+		interface PageData {
+			session: typeof App.Locals.session;
+		}
+		interface Platform {
+			env: { DB: D1Database };
+		}
 	}
 }
 
