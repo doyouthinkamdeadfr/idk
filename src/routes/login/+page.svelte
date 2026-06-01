@@ -7,6 +7,8 @@
 	let error = $state('');
 	let loading = $state(false);
 
+	const redirectTo = $derived(new URLSearchParams($page.url.search).get('redirect') || '/dashboard');
+
 	const providers = [
 		{ id: 'discord', label: 'Discord', icon: 'D' },
 		{ id: 'github', label: 'GitHub', icon: 'G' }
@@ -20,7 +22,7 @@
 			error = err.message;
 			loading = false;
 		} else {
-			window.location.href = '/dashboard';
+			window.location.href = redirectTo;
 		}
 	}
 
@@ -29,7 +31,7 @@
 		error = '';
 		const { error: err } = await authClient.signIn.social({
 			provider,
-			callbackURL: '/dashboard'
+			callbackURL: redirectTo
 		});
 		if (err) {
 			error = err.message;

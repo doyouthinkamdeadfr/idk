@@ -122,7 +122,7 @@
 								{/each}
 							</ul>
 							<a
-								href="#cta"
+								href={plan.name === 'Free' ? '/signup' : plan.name === 'Pro' ? '/pricing' : 'mailto:sales@memory.dev'}
 								class="mt-8 block w-full rounded-xl py-3 text-center text-sm font-semibold transition-all duration-200 active:scale-95 {plan.popular
 									? 'bg-accent-primary text-white hover:bg-accent-primary/90'
 									: 'bg-bg-primary text-text-muted hover:text-accent-primary'}"

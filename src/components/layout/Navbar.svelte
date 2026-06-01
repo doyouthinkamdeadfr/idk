@@ -28,6 +28,12 @@
 				Dashboard
 			</a>
 			<a
+				href="/pricing"
+				class="text-sm text-text-muted transition-colors hover:text-accent-primary"
+			>
+				Pricing
+			</a>
+			<a
 				href="/auth/logout"
 				class="rounded-full border border-border-subtle px-5 py-2 text-sm font-medium text-text-muted transition-all duration-200 hover:border-accent-primary hover:text-accent-primary active:scale-95"
 			>
@@ -45,8 +51,8 @@
 				>Benchmarks</a
 			>
 			<a
-				href="#pricing"
-				class="hidden text-sm text-text-muted transition-colors hover:text-accent-primary md:block"
+				href="/pricing"
+				class="text-sm text-text-muted transition-colors hover:text-accent-primary"
 				>Pricing</a
 			>
 			<a

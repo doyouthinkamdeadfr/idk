@@ -46,4 +46,17 @@ export const verification = sqliteTable('verification', {
 	updatedAt: text('updated_at').notNull()
 });
 
-export const schema = { user, session, account, verification };
+export const subscription = sqliteTable('subscription', {
+	id: text('id').primaryKey().notNull(),
+	userId: text('user_id').notNull().references(() => user.id),
+	polarSubscriptionId: text('polar_subscription_id').notNull().unique(),
+	polarProductId: text('polar_product_id').notNull(),
+	status: text('status').notNull(),
+	currentPeriodStart: text('current_period_start'),
+	currentPeriodEnd: text('current_period_end'),
+	cancelAtPeriodEnd: integer('cancel_at_period_end').notNull().default(0),
+	createdAt: text('created_at').notNull(),
+	updatedAt: text('updated_at').notNull()
+});
+
+export const schema = { user, session, account, verification, subscription };
