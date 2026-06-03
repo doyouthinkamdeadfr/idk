@@ -52,3 +52,10 @@ Built a ChatGPT-style dashboard shell on `phase-3-dashboard` branch:
 - Mock data: 8 chats, 5 documents, 3 projects
 
 7 commits, 15 files created.
+
+## [2026-06-03] fix | Dashboard layout fixes
+
+- Hid landing page Navbar + ProgressBar on dashboard routes (was overlapping dashboard TopBar)
+- Skipped Lenis scroll init when on dashboard to prevent scroll conflicts
+- Centered empty chat state vertically instead of pinning input to bottom
+- Auto-cycle welcome text on hard refresh (removed manual click interaction)
