@@ -1,9 +1,18 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { authClient } from '$lib/auth-client';
+	import { onMount } from 'svelte';
 
 	let planOpen = $state(false);
 	let user = $derived($page.data.session?.user);
 	let isPro = $state(false);
+
+	onMount(async () => {
+		try {
+			const { data } = await authClient.customer.state();
+			isPro = data?.subscriptions?.some((s: any) => s.status === 'active') ?? false;
+		} catch {}
+	});
 
 	function togglePlan(e: MouseEvent) {
 		e.stopPropagation();
@@ -35,9 +44,16 @@
 		{#if planOpen}
 			<div class="absolute top-full left-0 mt-2 w-56 rounded-xl border border-border-subtle bg-white p-4 shadow-lg" onclick={(e) => e.stopPropagation()}>
 				<p class="text-xs font-semibold tracking-wider text-text-muted uppercase">Current Plan</p>
-				<p class="mt-1 text-sm font-semibold text-text-primary">{isPro ? 'Pro' : 'Free'}</p>
+				<div class="mt-2 flex items-center gap-2">
+					<span class="rounded-full {isPro ? 'bg-accent-secondary/10 text-accent-secondary' : 'bg-text-muted/10 text-text-muted'} px-2.5 py-0.5 text-xs font-semibold">
+						{isPro ? 'Pro' : 'Free'}
+					</span>
+				</div>
 				<div class="mt-3 border-t border-border-subtle pt-3">
-					<a href="/dashboard/settings" class="block text-sm text-accent-primary hover:underline">Manage plan →</a>
+					{isPro
+						? <a href="/dashboard/settings" class="block text-sm text-accent-primary hover:underline">Manage plan →</a>
+						: <a href="/pricing" class="block text-sm text-accent-primary hover:underline">View plans →</a>
+					}
 				</div>
 			</div>
 		{/if}
