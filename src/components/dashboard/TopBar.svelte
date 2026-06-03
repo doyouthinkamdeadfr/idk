@@ -50,10 +50,11 @@
 					</span>
 				</div>
 				<div class="mt-3 border-t border-border-subtle pt-3">
-					{isPro
-						? <a href="/dashboard/settings" class="block text-sm text-accent-primary hover:underline">Manage plan →</a>
-						: <a href="/pricing" class="block text-sm text-accent-primary hover:underline">View plans →</a>
-					}
+					{#if isPro}
+						<a href="/dashboard/settings" class="block text-sm text-accent-primary hover:underline">Manage plan →</a>
+					{:else}
+						<a href="/pricing" class="block text-sm text-accent-primary hover:underline">View plans →</a>
+					{/if}
 				</div>
 			</div>
 		{/if}

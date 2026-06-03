@@ -40,8 +40,8 @@
 
 <svelte:window onclick={closeAddMenu} />
 
-<div class="border-t border-border-subtle bg-white px-6 py-4">
-	<div class="mx-auto flex max-w-3xl items-end gap-2 rounded-2xl border border-border-subtle bg-bg-primary px-3 py-2">
+<div class="px-6 py-4">
+	<div class="mx-auto flex max-w-3xl items-end gap-2 rounded-2xl border border-border-subtle bg-white px-3 py-2">
 		<div class="relative">
 			<button
 				onclick={toggleAddMenu}
@@ -68,6 +68,11 @@
 					<button onclick={closeAddMenu} class="flex w-full items-center gap-2.5 px-3 py-2 text-xs text-text-primary hover:bg-bg-primary transition-colors">
 						<svg class="h-3.5 w-3.5 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
 						Attach links
+					</button>
+					<div class="my-1 border-t border-border-subtle"></div>
+					<button onclick={closeAddMenu} class="flex w-full items-center gap-2.5 px-3 py-2 text-xs text-text-primary hover:bg-bg-primary transition-colors">
+						<svg class="h-3.5 w-3.5 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+						Start group chat
 					</button>
 				</div>
 			{/if}

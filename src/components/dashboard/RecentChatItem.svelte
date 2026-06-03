@@ -29,5 +29,5 @@
 		</svg>
 	{/if}
 	<span class="flex-1 truncate">{chat.title}</span>
-	<ChatMenu {chatId={chat.id}} pinned={chat.pinned} archived={chat.archived} {onPin} {onArchive} {onDelete} {onShare} />
+	<ChatMenu chatId={chat.id} pinned={chat.pinned} archived={chat.archived} {onPin} {onArchive} {onDelete} {onShare} />
 </button>
