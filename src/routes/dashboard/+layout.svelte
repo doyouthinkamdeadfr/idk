@@ -11,11 +11,11 @@
 	}
 </script>
 
-<div class="flex h-screen overflow-hidden bg-bg-primary">
+<div class="flex h-screen overflow-hidden bg-white">
 	<Sidebar open={sidebarOpen} ontoggle={toggleSidebar} />
 	<div class="flex flex-1 flex-col min-w-0">
 		<TopBar />
-		<main class="flex-1 overflow-y-auto">
+		<main class="flex-1 overflow-y-auto bg-white">
 			{@render children()}
 		</main>
 	</div>
