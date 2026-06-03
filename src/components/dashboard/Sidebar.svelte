@@ -54,7 +54,12 @@
 		// no-op for now
 	}
 
-	let $activeId = $derived($page.url.pathname.match(/\/dashboard\/c\/(.+)/)?.[1] ?? null);
+	let currentPath = $derived($page.url.pathname);
+	let $activeId = $derived(currentPath.match(/\/dashboard\/c\/(.+)/)?.[1] ?? null);
+	let isNewChat = $derived(currentPath === '/dashboard');
+	let isDocuments = $derived(currentPath === '/dashboard/documents');
+	let isProjects = $derived(currentPath === '/dashboard/projects');
+	let isSettings = $derived(currentPath === '/dashboard/settings');
 </script>
 
 <svelte:window onclick={closeMenu} />
@@ -67,7 +72,7 @@
 	<div class="px-3">
 		<button
 			onclick={handleNewChat}
-			class="flex w-full items-center justify-center gap-2 rounded-lg border border-dashed border-border-subtle px-3 py-2 text-sm font-medium text-text-muted transition-all duration-200 hover:border-accent-primary hover:text-accent-primary active:scale-[0.98]"
+			class="flex w-full items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium transition-all duration-200 active:scale-[0.98] {isNewChat ? 'border-accent-primary bg-accent-primary/10 text-accent-primary' : 'border-dashed border-border-subtle text-text-muted hover:border-accent-primary hover:text-accent-primary'}"
 		>
 			<svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
@@ -104,14 +109,14 @@
 				<div class="ml-1 mt-1 space-y-0.5">
 					<a
 						href="/dashboard/documents"
-						class="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs text-text-muted hover:text-text-primary hover:bg-bg-primary transition-colors"
+						class="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs transition-colors {isDocuments ? 'bg-accent-primary/10 text-accent-primary' : 'text-text-muted hover:text-text-primary hover:bg-bg-primary'}"
 					>
 						<svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
 						Documents
 					</a>
 					<a
 						href="/dashboard/projects"
-						class="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs text-text-muted hover:text-text-primary hover:bg-bg-primary transition-colors"
+						class="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs transition-colors {isProjects ? 'bg-accent-primary/10 text-accent-primary' : 'text-text-muted hover:text-text-primary hover:bg-bg-primary'}"
 					>
 						<svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" /></svg>
 						Projects
