@@ -52,7 +52,7 @@
 				</svg>
 			</button>
 			{#if addMenuOpen}
-				<div class="absolute bottom-full left-0 mb-2 w-48 rounded-xl border border-border-subtle bg-white py-1 shadow-lg" onclick={(e) => e.stopPropagation()}>
+				<div class="absolute top-full left-0 mt-2 w-48 rounded-xl border border-border-subtle bg-white py-1 shadow-lg" onclick={(e) => e.stopPropagation()}>
 					<button onclick={closeAddMenu} class="flex w-full items-center gap-2.5 px-3 py-2 text-xs text-text-primary hover:bg-bg-primary transition-colors">
 						<svg class="h-3.5 w-3.5 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
 						Add photos

@@ -134,7 +134,7 @@
 							onclick={toggleMoreMenu}
 							class="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-xs text-text-muted hover:text-text-primary hover:bg-bg-primary transition-colors"
 						>
-							<svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6h.01M6 12h.01M6 18h.01M12 6h.01M12 12h.01M12 18h.01M18 6h.01M18 12h.01M18 18h.01" /></svg>
+							<svg class="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zm6 0a2 2 0 11-4 0 2 2 0 014 0zm6 0a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
 							...more
 						</button>
 						{#if moreMenuOpen}
