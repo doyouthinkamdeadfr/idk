@@ -1,5 +1,10 @@
 <script lang="ts">
-	let messages: Array<{role: 'user' | 'assistant', content: string}> = $state([]);
+	import { page } from '$app/stores';
+
+	let chatId = $derived($page.data.chatId as string);
+	let messages = $state<Array<{role: 'user' | 'assistant', content: string}>>([
+		{ role: 'assistant', content: 'Hello! How can I help you with your data today?' }
+	]);
 	let input = $state('');
 
 	function send() {
@@ -21,28 +26,19 @@
 </script>
 
 <div class="flex h-full flex-col">
-	{#if messages.length === 0}
-		<div class="flex flex-1 items-center justify-center">
-			<div class="text-center">
-				<h2 class="text-2xl font-bold text-text-primary">Ready when you are.</h2>
-				<p class="mt-2 text-sm text-text-muted">Ask anything about your connected data.</p>
-			</div>
-		</div>
-	{:else}
-		<div class="flex-1 overflow-y-auto px-6 py-6">
-			<div class="mx-auto max-w-3xl space-y-6">
-				{#each messages as msg}
-					<div class="flex {msg.role === 'user' ? 'justify-end' : 'justify-start'}">
-						<div
-							class="max-w-[80%] rounded-2xl px-4 py-3 text-sm {msg.role === 'user' ? 'bg-accent-primary text-white' : 'bg-white border border-border-subtle text-text-primary'}"
-						>
-							{msg.content}
-						</div>
+	<div class="flex-1 overflow-y-auto px-6 py-6">
+		<div class="mx-auto max-w-3xl space-y-6">
+			{#each messages as msg}
+				<div class="flex {msg.role === 'user' ? 'justify-end' : 'justify-start'}">
+					<div
+						class="max-w-[80%] rounded-2xl px-4 py-3 text-sm {msg.role === 'user' ? 'bg-accent-primary text-white' : 'bg-white border border-border-subtle text-text-primary'}"
+					>
+						{msg.content}
 					</div>
-				{/each}
-			</div>
+				</div>
+			{/each}
 		</div>
-	{/if}
+	</div>
 
 	<div class="border-t border-border-subtle bg-white px-6 py-4">
 		<div class="mx-auto flex max-w-3xl items-end gap-2 rounded-2xl border border-border-subtle bg-bg-primary px-4 py-3">
