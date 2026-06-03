@@ -39,3 +39,16 @@ Reconciled wiki with the actual git history and codebase after discovering the w
 - **`sections.md`** — Rewritten: 7 warm-light sections, no particle shapes or camera spline
 - **`todo-snapshot.md`** — Updated: removed completed 3D items, added auth/billing progress
 - **`_index.md`** — Updated stats and summaries; added note that sessions 001-003 reflect old architecture
+
+## [2026-06-03] scaffold | Dashboard UI
+
+Built a ChatGPT-style dashboard shell on `phase-3-dashboard` branch:
+
+- Layout: sidebar (240px) + top bar + main content area, auth guard redirecting to /login
+- Sidebar: New Chat, Search, Library (Documents/Projects), Recents with pin/archive/delete/share, user menu with upgrade/personalization/settings/help/logout
+- Top bar: Memory brand with plan dropdown, Upgrade button, New Chat shortcut
+- Routes: /dashboard (chat), /dashboard/c/[id] (chat view), /dashboard/documents, /dashboard/projects, /dashboard/settings
+- Components: ChatInput (+ menu, textarea, mic, send), EmptyChatState (rotating welcome lines), RecentChatItem, ChatMenu, Sidebar, TopBar
+- Mock data: 8 chats, 5 documents, 3 projects
+
+7 commits, 15 files created.

@@ -38,7 +38,8 @@ updated: 2026-06-03
 | [Session 002 — All-In Visual Upgrade](sessions/002-scope-raise.md) | Rive animations, particle 3D, fluid typography, visual overhaul | 2026-05-28 |
 | [Session 003 — Immersive 3D Re-architecture](sessions/003-immersive-rearch.md) | Raw Three.js, camera spline, post-processing, particle morphing | 2026-05-28 |
 | [Session 004 — Deployment](sessions/004-deployment.md) | Cloudflare Pages deploy, wrangler v3 workaround | 2026-05-30 |
-
+| [Session 005 — Dashboard Scaffolding](sessions/005-dashboard-scaffolding.md) | ChatGPT-style dashboard shell with sidebar, recents, chat input, mock data | 2026-06-03 |
+ 
 > **Note**: Sessions 001-003 describe the **old cyberpunk 3D architecture** which was replaced by the creative reset (2026-05-29). The sessions are preserved for historical reference but do not reflect the current codebase.
 
 ## Raw sources
@@ -47,4 +48,4 @@ See `../raw/` — no sources ingested yet.
 
 ---
 
-**Stats**: 7 wiki pages, 4 sessions, 0 components, 0 concepts, 0 raw sources
+**Stats**: 7 wiki pages, 5 sessions, 0 components, 0 concepts, 0 raw sources

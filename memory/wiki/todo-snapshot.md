@@ -6,7 +6,7 @@ sources:
   - git log
 ---
 
-# Todo Snapshot — Post-Auth Phase (2026-06-03)
+# Todo Snapshot — Dashboard Scaffolding (2026-06-03)
 
 ## Repo: supermemory landing page
 
@@ -33,14 +33,24 @@ sources:
 - [x] D1 migrations (user, session, account, verification, subscription)
 - [x] Pricing page with tier cards + monthly/annual toggle
 
+## Completed: Dashboard Scaffolding (Phase 3)
+- [x] Dashboard layout shell (sidebar + top bar + main area)
+- [x] Auth guard (redirect to /login if no session)
+- [x] Sidebar: New Chat, Search, Library (Documents/Projects), Recents (pin/archive/delete/share), User menu
+- [x] Top bar: Memory brand with plan dropdown, Upgrade button, New Chat shortcut
+- [x] /dashboard — New Chat: EmptyChatState (rotating welcome lines) + ChatInput + mock message display
+- [x] /dashboard/c/[id] — Chat view with message history + ChatInput
+- [x] /dashboard/documents — Document list from mock data
+- [x] /dashboard/projects — Project cards from mock data
+- [x] /dashboard/settings — Profile info + Plan management + Sign out
+- [x] ChatInput: + menu (photos/files/recent/links), textarea, mic, send
+
 ## Future
 - [ ] RAG API integration (supermemory.ai)
-- [ ] Dashboard: query history, document management, usage stats
-- [ ] Chat interface page
-- [ ] Settings page
+- [ ] Real chat persistence + backend sync
+- [ ] Real document upload/management
 - [ ] Mobile performance optimization
 - [ ] Accessibility pass (prefers-reduced-motion, aria labels)
-- [ ] Refine camera path curves per section feel — N/A (no 3D camera)
 
 ## Key Context
 - **Stack**: SvelteKit + TypeScript + Tailwind v4 + Lenis + Better Auth + D1 + Polar.sh
