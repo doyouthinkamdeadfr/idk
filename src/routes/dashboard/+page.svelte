@@ -14,7 +14,12 @@
 
 <div class="flex h-full flex-col">
 	{#if messages.length === 0}
-		<EmptyChatState />
+		<div class="flex flex-1 flex-col items-center justify-center px-6">
+			<EmptyChatState />
+			<div class="mt-8 w-full max-w-3xl">
+				<ChatInput {send} />
+			</div>
+		</div>
 	{:else}
 		<div class="flex-1 overflow-y-auto px-6 py-6">
 			<div class="mx-auto max-w-3xl space-y-6">
@@ -29,7 +34,6 @@
 				{/each}
 			</div>
 		</div>
+		<ChatInput {send} />
 	{/if}
-
-	<ChatInput {send} />
 </div>

@@ -1,11 +1,14 @@
 <script lang="ts">
 	import './layout.css';
 	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 	import Navbar from '$components/layout/Navbar.svelte';
 	import ProgressBar from '$components/ui/ProgressBar.svelte';
 	import { initScroll, destroyScroll, activeSection } from '$lib/scroll';
 
 	let { children } = $props();
+
+	let isDashboard = $derived($page.url.pathname.startsWith('/dashboard'));
 
 	const sectionBgs = [
 		'var(--color-bg-primary)',
@@ -20,6 +23,8 @@
 	let bgStyle = $state(sectionBgs[0]);
 
 	onMount(() => {
+		if (isDashboard) return;
+
 		initScroll();
 
 		const unsub = activeSection.subscribe((idx) => {
@@ -34,10 +39,12 @@
 	});
 </script>
 
-<div class="fixed inset-0 -z-10 transition-colors duration-700" style="background: {bgStyle}"></div>
+<div class="fixed inset-0 -z-10 transition-colors duration-700" style="background: {isDashboard ? '#f7f5f0' : bgStyle}"></div>
 
-<ProgressBar />
-<Navbar />
+{#if !isDashboard}
+	<ProgressBar />
+	<Navbar />
+{/if}
 
 <main>
 	{@render children()}
