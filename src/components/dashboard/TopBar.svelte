@@ -30,7 +30,7 @@
 
 <svelte:window onclick={closePlan} />
 
-<header class="flex h-14 items-center justify-between bg-white px-6">
+<header class="flex h-14 items-center justify-between bg-bg-primary px-6">
 	<div class="relative">
 		<button
 			onclick={togglePlan}

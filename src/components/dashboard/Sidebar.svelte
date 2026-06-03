@@ -80,7 +80,7 @@
 <svelte:window onclick={closeAll} />
 
 <aside
-	class="flex h-full flex-col border-r border-border-subtle bg-white overflow-hidden transition-all duration-300"
+	class="flex h-full flex-col border-r border-border-subtle bg-bg-primary overflow-hidden transition-all duration-300"
 	class:w-14={!open}
 	class:w-60={open}
 	class:items-center={!open}
