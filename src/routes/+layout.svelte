@@ -1,9 +1,10 @@
 <script lang="ts">
 	import './layout.css';
 	import { onMount } from 'svelte';
-	import { page } from '$app/stores';
+	import { page, navigating } from '$app/stores';
 	import Navbar from '$components/layout/Navbar.svelte';
 	import ProgressBar from '$components/ui/ProgressBar.svelte';
+	import PageLoader from '$components/ui/PageLoader.svelte';
 	import { initScroll, destroyScroll, activeSection } from '$lib/scroll';
 
 	let { children } = $props();
@@ -23,6 +24,8 @@
 	let bgStyle = $state(sectionBgs[0]);
 
 	onMount(() => {
+		document.getElementById('skeleton-loader')?.classList.add('hidden');
+
 		if (isDashboard) return;
 
 		initScroll();
@@ -40,6 +43,10 @@
 </script>
 
 <div class="fixed inset-0 -z-10 transition-colors duration-700" style="background: {isDashboard ? '#f7f5f0' : bgStyle}"></div>
+
+{#if $navigating}
+	<PageLoader />
+{/if}
 
 {#if !isDashboard}
 	<ProgressBar />
