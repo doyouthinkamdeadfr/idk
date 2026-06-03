@@ -1,9 +1,21 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { onMount } from 'svelte';
+	import RecentChatItem from './RecentChatItem.svelte';
+	import { mockChats } from '$lib/mock';
 
 	let user = $derived($page.data.session?.user);
 	let userMenuOpen = $state(false);
+	let libraryOpen = $state(true);
+	let recents = $state([...mockChats]);
+
+	let sortedRecents = $derived(
+		recents
+			.filter((c) => !c.archived)
+			.sort((a, b) => {
+				if (a.pinned !== b.pinned) return a.pinned ? -1 : 1;
+				return b.updatedAt.getTime() - a.updatedAt.getTime();
+			})
+	);
 
 	function toggleUserMenu(e: MouseEvent) {
 		e.stopPropagation();
@@ -25,6 +37,24 @@
 	function handleNewChat() {
 		window.location.href = '/dashboard';
 	}
+
+	function togglePin(id: string) {
+		recents = recents.map((c) => (c.id === id ? { ...c, pinned: !c.pinned } : c));
+	}
+
+	function toggleArchive(id: string) {
+		recents = recents.map((c) => (c.id === id ? { ...c, archived: !c.archived } : c));
+	}
+
+	function deleteChat(id: string) {
+		recents = recents.filter((c) => c.id !== id);
+	}
+
+	function shareChat(id: string) {
+		// no-op for now
+	}
+
+	let $activeId = $derived($page.url.pathname.match(/\/dashboard\/c\/(.+)/)?.[1] ?? null);
 </script>
 
 <svelte:window onclick={closeMenu} />
@@ -61,12 +91,33 @@
 
 	<nav class="mt-4 flex-1 overflow-y-auto px-3">
 		<div class="mb-2">
-			<button class="flex w-full items-center justify-between rounded-lg px-2.5 py-1.5 text-xs font-semibold tracking-wider text-text-muted uppercase hover:text-text-primary transition-colors">
+			<button
+				onclick={() => libraryOpen = !libraryOpen}
+				class="flex w-full items-center justify-between rounded-lg px-2.5 py-1.5 text-xs font-semibold tracking-wider text-text-muted uppercase hover:text-text-primary transition-colors"
+			>
 				<span>Library</span>
-				<svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				<svg class="h-3 w-3 transition-transform {libraryOpen ? 'rotate-0' : '-rotate-90'}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
 				</svg>
 			</button>
+			{#if libraryOpen}
+				<div class="ml-1 mt-1 space-y-0.5">
+					<a
+						href="/dashboard/documents"
+						class="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs text-text-muted hover:text-text-primary hover:bg-bg-primary transition-colors"
+					>
+						<svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+						Documents
+					</a>
+					<a
+						href="/dashboard/projects"
+						class="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs text-text-muted hover:text-text-primary hover:bg-bg-primary transition-colors"
+					>
+						<svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" /></svg>
+						Projects
+					</a>
+				</div>
+			{/if}
 		</div>
 
 		<div class="mb-4">
@@ -75,7 +126,16 @@
 				<button class="text-xs text-accent-primary hover:underline">Create group</button>
 			</div>
 			<div class="mt-1 space-y-0.5">
-				<div class="rounded-lg px-2.5 py-2 text-xs text-text-muted">No recent chats</div>
+				{#each sortedRecents as chat (chat.id)}
+					<RecentChatItem
+						chat={chat}
+						active={$activeId === chat.id}
+						onPin={togglePin}
+						onArchive={toggleArchive}
+						onDelete={deleteChat}
+						onShare={shareChat}
+					/>
+				{/each}
 			</div>
 		</div>
 	</nav>
@@ -94,7 +154,7 @@
 				</div>
 			</button>
 
-			<div class="absolute right-3 top-1.5">
+			<div class="absolute right-3 top-3.5">
 				<button onclick={handleUpgrade} class="rounded-full bg-accent-primary px-2.5 py-0.5 text-[10px] font-semibold text-white hover:bg-accent-primary/90 transition-colors">
 					Upg
 				</button>
