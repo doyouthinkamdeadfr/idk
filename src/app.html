@@ -7,6 +7,46 @@
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">
+		<div id="skeleton-loader" class="skeleton-loader">
+			<div class="sk-spinner"></div>
+			<span class="sk-brand">Memory</span>
+		</div>
+		<style>
+			.skeleton-loader {
+				position: fixed;
+				inset: 0;
+				z-index: 99999;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				gap: 16px;
+				background: #f7f5f0;
+				opacity: 1;
+				transition: opacity 0.3s ease;
+				pointer-events: none;
+			}
+			.skeleton-loader.hidden {
+				opacity: 0;
+			}
+			.sk-spinner {
+				width: 32px;
+				height: 32px;
+				border: 3px solid #e5e2dc;
+				border-top-color: #e8634a;
+				border-radius: 50%;
+				animation: sk-spin 0.8s linear infinite;
+			}
+			.sk-brand {
+				font-size: 18px;
+				font-weight: 700;
+				color: #2a2a2a;
+				font-family: system-ui, sans-serif;
+			}
+			@keyframes sk-spin {
+				to { transform: rotate(360deg); }
+			}
+		</style>
 		<div style="display: contents">%sveltekit.body%</div>
 	</body>
 </html>
