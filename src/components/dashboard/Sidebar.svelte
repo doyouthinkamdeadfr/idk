@@ -96,33 +96,25 @@
 		</div>
 
 		<div class="w-60 flex-1 flex flex-col min-w-0">
-			<div class="px-3">
-				<button
-					onclick={handleNewChat}
-					class="flex w-full items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium transition-all duration-200 active:scale-[0.98] {isNewChat ? 'border-accent-primary bg-accent-primary/10 text-accent-primary' : 'border-dashed border-border-subtle text-text-muted hover:border-accent-primary hover:text-accent-primary'}"
-				>
-					<svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-					</svg>
-					New Chat
-				</button>
-			</div>
-
-			<div class="mt-3 px-3">
-				<div class="relative">
-					<svg class="absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
-					</svg>
-					<input
-						type="text"
-						placeholder="Search chats..."
-						class="w-full rounded-lg border border-border-subtle bg-bg-primary py-1.5 pl-8 pr-3 text-xs text-text-primary placeholder:text-text-muted focus:border-accent-primary focus:outline-none"
-					/>
-				</div>
-			</div>
-
 			<nav class="mt-4 flex-1 overflow-y-auto px-3">
 				<div class="space-y-0.5">
+					<button
+						onclick={handleNewChat}
+						class="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-xs transition-colors {isNewChat ? 'bg-accent-primary/10 text-accent-primary' : 'text-text-muted hover:text-text-primary hover:bg-bg-primary'}"
+					>
+						<svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+						</svg>
+						New Chat
+					</button>
+					<button
+						class="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-xs text-text-muted hover:text-text-primary hover:bg-bg-primary transition-colors"
+					>
+						<svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+						</svg>
+						Search
+					</button>
 					<a
 						href="/dashboard/documents"
 						class="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs transition-colors {isDocuments ? 'bg-accent-primary/10 text-accent-primary' : 'text-text-muted hover:text-text-primary hover:bg-bg-primary'}"

@@ -69,12 +69,11 @@
 		</a>
 		<button
 			onclick={handleNewChat}
-			class="flex items-center gap-1.5 rounded-full border border-border-subtle px-4 py-1.5 text-xs font-semibold text-text-primary transition-all duration-200 hover:border-accent-primary hover:text-accent-primary active:scale-95"
+			class="flex h-8 w-8 items-center justify-center rounded-lg text-text-muted hover:text-accent-primary hover:bg-bg-primary transition-all"
 		>
-			<svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+			<svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
 			</svg>
-			New Chat
 		</button>
 	</div>
 </header>
