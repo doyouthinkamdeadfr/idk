@@ -1,46 +1,51 @@
 ---
 tags: [design, sections]
 created: 2026-05-28
-updated: 2026-05-28
+updated: 2026-06-03
 sources:
-  - plan.md
-  - sessions/003-immersive-rearch.md
+  - src/routes/+page.svelte
+  - src/components/sections/
 ---
 
 # Landing Page Sections
 
-9 sections, scroll-driven camera follows CatmullRom spline with one waypoint per section.
+7 full-screen sticky-stacked sections, scroll-driven via Lenis + `scroll.ts` stores. Each section receives a `sectionProgress` prop (0→1) for scroll-based entrance animations.
 
 ## Section list
 
-| # | Section | Camera position | Particle shape | Key elements |
-|---|---------|-----------------|----------------|--------------|
-| 0 | Hero | Elevated, wide view | Sphere | Headlines in 3D, CTAs in DOM, entrance sequence |
-| 1 | Brands | Slides right, looks left | Ring | Marquee in DOM |
-| 2 | Features | Close, eye level | Clusters | 3D labels, DOM card interaction |
-| 3 | Case Studies | Left, looks right | Spread | Horizontal pinned scroll |
-| 4 | Demo | Pulled back, looks up | Ellipse | Auto-play typing steps on section enter |
-| 5 | Stats | Right, looks down-left | Wave | Animated counters |
-| 6 | Pricing | Elevated, looks down | Diamond | Interactive tier cards |
-| 7 | CTA | Close, center | Converging | 3D tagline, DOM buttons |
-| 8 | Footer | Low, looks up | Cloud | Standard footer DOM |
+| # | Section | Background | Key elements |
+|---|---------|------------|--------------|
+| 0 | Hero | `#f7f5f0` | 2D Canvas network graph (30 nodes), animated headline char-stagger, CTA buttons, scroll indicator |
+| 1 | Problem | `#f0ece4` | Parallax blurred orbs (background), 3 pain-point cards with accent border-left, parallax columns |
+| 2 | Solution | `#faf2ea` | 3 tweened stat counters (50K+ docs, 99.7% accuracy, 2M+ queries), animated on intersection |
+| 3 | HowItWorks | `#f7f5f0` | 3-step flow (Connect → Retrieve → Answer), step number highlight on scroll progress |
+| 4 | Benchmarks | `#faf2ea` | Speed comparison (2.3s vs 47ms), tweened bar fill animation, TiltCard with glow |
+| 5 | Pricing | `#f7f5f0` | 3 tiers (Free $0, Pro $29/mo, Enterprise Custom), monthly/annual toggle, Polar checkout |
+| 6 | CTA | `#faf2ea` | Gradient background, heading + CTA buttons, footer merged into same section |
 
-## Particle shapes per section
+## Color palette (Warm + Light)
 
-Sphere (0) → Ring (1) → Clusters (2) → Spread (3) → Ellipse (4) → Wave (5) → Diamond (6) → Converging (7) → Cloud (8)
+- Background primary: `#f7f5f0`
+- Background alt: `#f0ece4`
+- Background warm: `#faf2ea`
+- Surface: `#ffffff`
+- Accent primary: `#e8634a` (used for CTAs, highlights, stat numbers)
+- Accent secondary: `#2a9d8f`
+- Accent warm: `#e8b87a`
+- Text primary: `#1c1a15`
+- Text muted: `#8a857c`
+- Border subtle: `rgba(28, 26, 21, 0.08)`
 
-## Color palette
+## UI primitives
 
-- Background: `#050508`
-- Surface: `#0a0a14`
-- Neon Cyan: `#00f0ff`
-- Neon Magenta: `#ff00e5`
-- Text primary: `#f0f0f0`
-- Text muted: `#8888aa`
-- Grid lines: `rgba(0, 240, 255, 0.06)`
+- **Reveal.svelte**: Generic scroll entrance — opacity + translateY, configurable stagger (0→1 parameter)
+- **TiltCard.svelte**: Pointer-driven 3D perspective rotation + radial glare overlay (configurable glowColor)
+- **Counter.svelte**: IntersectionObserver-triggered tweened counter from 0 to target value
+- **ProgressBar.svelte**: Fixed top bar driven by `scrollProgress` store
+- **parallax.ts**: Svelte action — translates element based on scroll offset at configurable speed
 
 ## Related
 
 - [Architecture](architecture.md) — rendering pipeline and data flow
 - [Plan](plan.md) — full project plan
-- [Decisions](decisions.md) — ADR-006, ADR-007, ADR-008
+- [Decisions](decisions.md) — ADR-009, ADR-010

@@ -1,49 +1,53 @@
 ---
 tags: [todo, tracking]
 created: 2026-05-28
-updated: 2026-05-28
+updated: 2026-06-03
 sources:
-  - sessions/003-immersive-rearch.md
+  - git log
 ---
 
-# Todo Snapshot — Session 003 (2026-05-28)
+# Todo Snapshot — Post-Auth Phase (2026-06-03)
 
 ## Repo: supermemory landing page
 
-## Phase 3 Complete: Immersive 3D Re-architecture
-- [x] Camera spline path (9 waypoints, CatmullRomCurve3)
-- [x] Post-processing pipeline (bloom + CA + vignette via EffectComposer)
-- [x] Particle morphing (9 shapes: sphere → ring → clusters → spread → ellipse → wave → diamond → converging → cloud)
-- [x] Raw Three.js scene (replaced @threlte)
-- [x] Projected DOM text (3D→screen projection)
-- [x] Entrance sequence (preloader + 2.5s reveal)
-- [x] Velocity-responsive effects (bloom/CA intensity from scroll speed)
-- [x] DOM section simplification (Hero, Features, SectionHeading, CTA)
-- [x] Removed unused files (clipReveal, splitText, scrollReveal, SectionDivider)
-- [x] Fix black page (SceneContent ref error, preloader overlay, entrance never ran)
-- [x] Fix TextOverlay (local temp camera, correct anchor positions, section-based visibility, neon glow text styles)
-- [x] Dramatic camera path (z=6→30, 5 intermediates, wider lateral sweeps)
-- [x] Scene architecture (3000 particles, 5 floating rings, grid floor, 9 octahedron sentinels, larger torus)
-- [x] SectionWrapper component (DOM content bound to sectionIndex proximity)
-- [x] Demo pin removed (replaced by auto-play steps on section enter)
-- [x] Mouse parallax boosted (0.3→0.6)
-- [x] Sections wired with SectionWrapper in +page.svelte
-- [x] Build verification
+## Completed: Landing Page
+- [x] Full creative reset — warm light palette, 2D canvas hero, native CSS animations
+- [x] 7 sections: Hero → Problem → Solution → HowItWorks → Benchmarks → Pricing → CTA
+- [x] Lenis smooth scroll + scroll stores (activeSection, sectionProgress, velocity)
+- [x] HeroCanvas — 2D network graph (30 nodes, pulsing connections, mouse parallax)
+- [x] Reveal, TiltCard, Counter UI primitives
+- [x] Parallax Svelte action
+- [x] Sticky-stacked full-screen sections
+- [x] Animated headline (per-char stagger)
+- [x] Cloudflare Pages deployment via adapter-cloudflare
+
+## Completed: Auth + Billing
+- [x] Better Auth with D1 (Drizzle ORM adapter)
+- [x] Email/password auth
+- [x] Discord + GitHub OAuth
+- [x] Login, signup, dashboard, logout pages
+- [x] Session management (hooks.server.ts)
+- [x] Polar.sh billing integration (Better Auth plugin)
+- [x] Polar checkout + customer portal
+- [x] Subscription webhook handlers (active/canceled/revoked)
+- [x] D1 migrations (user, session, account, verification, subscription)
+- [x] Pricing page with tier cards + monthly/annual toggle
 
 ## Future
-- [x] Deploy to Cloudflare Workers
-- [ ] Mobile 3D performance optimization (particle count, simplification)
-- [ ] Accessibility pass (aria labels for 3D text, screen reader fallbacks)
-- [ ] Refine camera path curves per section feel
-- [ ] Supabase auth + Polar.sh subscriptions
-- [ ] Supermemory.ai API integration
-- [ ] Dashboard, chat, settings pages
+- [ ] RAG API integration (supermemory.ai)
+- [ ] Dashboard: query history, document management, usage stats
+- [ ] Chat interface page
+- [ ] Settings page
+- [ ] Mobile performance optimization
+- [ ] Accessibility pass (prefers-reduced-motion, aria labels)
+- [ ] Refine camera path curves per section feel — N/A (no 3D camera)
 
 ## Key Context
-- **Stack**: SvelteKit + TypeScript + Tailwind v4 + GSAP + Lenis + Three.js (raw) + Rive
-- **3D**: Raw Three.js (EffectComposer, CatmullRom spline camera, particle morph, post-processing)
-- **DOM text**: Projected via 3D→screen coordinate mapping (crisp + selectable + SEO)
-- **Deploy**: Cloudflare Workers (@sveltejs/adapter-cloudflare)
-- **PM**: bun (via WSL)
-- **Theme**: Cyberpunk (bg #050508, cyan #00f0ff, magenta #ff00e5)
-- **Removed**: @threlte from scene rendering, clipReveal, splitText, scrollReveal, SectionDivider
+- **Stack**: SvelteKit + TypeScript + Tailwind v4 + Lenis + Better Auth + D1 + Polar.sh
+- **Design**: Warm light palette (#f7f5f0 bg, #e8634a accent, #2a9d8f secondary)
+- **Animations**: Native CSS + Lenis + Reveal scroll entrance
+- **Hero**: 2D Canvas network graph (no Three.js)
+- **Auth**: Better Auth with D1 (self-hosted, Cloudflare ecosystem)
+- **Billing**: Polar.sh sandbox with webhook sync
+- **Deploy**: Cloudflare Workers (adapter-cloudflare + D1 binding)
+- **PM**: bun

@@ -1,66 +1,72 @@
 ---
 tags: [plan, architecture]
 created: 2026-05-28
-updated: 2026-05-30
+updated: 2026-06-03
 sources:
   - sessions/001-initial-setup.md
   - sessions/002-scope-raise.md
   - sessions/003-immersive-rearch.md
+  - sessions/004-deployment.md
 ---
 
 # Supermemory Landing Page — Plan
 
 ## Stack
-- **Framework**: SvelteKit + TypeScript
-- **Styling**: Tailwind CSS v4 (cyberpunk dark theme)
-- **3D Engine**: Raw Three.js (imperative, EffectComposer + post-processing)
-- **Camera**: 9-waypoint CatmullRomCurve3 spline (scroll-driven)
-- **Post-Processing**: UnrealBloomPass + Chromatic Aberration + Vignette
-- **Particles**: 9 morphing shapes per section
-- **Text**: Projected DOM (3D→screen projection, crisp + selectable + SEO)
-- **DOM Animations**: GSAP + Lenis
-- **Interactive Vector**: Rive (navbar hamburger, hero sparkle)
+- **Framework**: SvelteKit + TypeScript (runes mode)
+- **Styling**: Tailwind CSS v4 (warm light palette)
+- **Animations**: Lenis smooth scroll + native CSS animations
+- **Hero Canvas**: 2D Canvas network graph (30 nodes, pulsing connections)
+- **Scroll System**: Lenis → writable stores (scrollY, activeSection, sectionProgress)
+- **Entrance Animations**: Reveal component (opacity + translateY based on scroll progress)
+- **Interactive Cards**: TiltCard component (pointer-driven 3D perspective rotation + glare)
+- **Counters**: IntersectionObserver-triggered tweened counters
+- **Auth**: Better Auth (email/password + Discord + GitHub OAuth)
+- **DB**: Cloudflare D1 via Drizzle ORM
+- **Billing**: Polar.sh with Better Auth plugin
 - **Deploy**: Cloudflare Workers (`@sveltejs/adapter-cloudflare`)
-- **PM**: bun (via WSL)
+- **PM**: bun
 
 ## Architecture
 ```
-Lenis scroll → scroll3d.ts stores (progress, section, velocity)
+Lenis scroll → scroll.ts stores (scrollY, activeSection, sectionProgress, scrollVelocity)
   ↓
-RAF loop (Neon3DScene.svelte):
-  ├─ cameraPath.ts → camera follows CatmullRom spline
-  ├─ SceneContent.ts → particles morph, torus color/speed
-  ├─ PostProcessing.ts → bloom/CA/vignette intensity from velocity
-  └─ composer.render()
++page.svelte: 7 sticky-stacked full-screen sections
+  ├─ Hero             — 2D canvas network graph, animated headline chars
+  ├─ Problem          — parallax backgrounds, border-left cards
+  ├─ Solution         — animated counters (tweened, IntersectionObserver)
+  ├─ HowItWorks       — step highlight on scroll (3 steps: Connect → Retrieve → Answer)
+  ├─ Benchmarks       — tweened speed comparison bars + TiltCard
+  ├─ Pricing          — free/pro/enterprise tiers, monthly/annual toggle
+  └─ CTA              — gradient background, footer merged
   ↓
-TextOverlay.svelte → project 3D anchors → position DOM text
+UI primitives: Reveal, TiltCard, Counter, ProgressBar
+Layout: Navbar (scrolled state detection), ProgressBar (scroll progress)
 ```
 
 ## Section Design
-- **Hero**: Camera elevated, wide view. Headlines in 3D space. CTAs in DOM.
-- **Brands**: Camera slides right, looks left. Marquee in DOM.
-- **Features**: Camera close, eye level. 3D labels, DOM card interaction.
-- **Case Studies**: Camera left, looks right. Horizontal pinned scroll.
-- **Demo**: Camera pulled back, looks up. Pinned scroll-through mock chat.
-- **Stats**: Camera right, looks down-left. Animated counters.
-- **Pricing**: Camera elevated, looks down. Interactive tier cards.
-- **CTA**: Camera close, center. 3D tagline, DOM buttons.
-- **Footer**: Camera low, looks up. Standard footer DOM.
+- **Hero**: 2D Canvas nodes + connections. Headline splits into chars with staggered entrance animation. CTA buttons.
+- **Problem**: Parallax layered. 3 pain points with border-left cards.
+- **Solution**: Warm accent background. 3 stat counters (50K+, 99.7%, 2M+).
+- **How It Works**: 3-step flow (Connect → Retrieve → Answer). Step numbers highlight on scroll progress.
+- **Benchmarks**: Speed comparison: 2.3s traditional vs 47ms Memory. Animated bars + TiltCard.
+- **Pricing**: 3 tiers (Free $0, Pro $29/mo, Enterprise Custom). Monthly/annual toggle. Polar checkout integration.
+- **CTA**: Gradient background. Heading + CTA buttons. Footer with links merged into same section.
 
-## Particle Shapes per Section
-0: Sphere (intro) → 1: Ring (brands) → 2: Clusters (features) → 3: Spread (cases) → 4: Ellipse (demo bubble) → 5: Wave (stats growth) → 6: Diamond (pricing) → 7: Converging (CTA) → 8: Cloud (footer)
+## Color Palette (Warm + Light)
+- Background: `#f7f5f0`
+- Background alt: `#f0ece4`
+- Background warm: `#faf2ea`
+- Surface/white: `#ffffff`
+- Accent primary: `#e8634a`
+- Accent secondary: `#2a9d8f`
+- Accent warm: `#e8b87a`
+- Text primary: `#1c1a15`
+- Text muted: `#8a857c`
+- Border subtle: `rgba(28, 26, 21, 0.08)`
 
-## Color Palette (Cyberpunk)
-- Background: `#050508`
-- Surface: `#0a0a14`
-- Neon Cyan: `#00f0ff`
-- Neon Magenta: `#ff00e5`
-- Text primary: `#f0f0f0`
-- Text muted: `#8888aa`
-
-## Future Phases (post-landing-page)
-- ~~Cloudflare deployment~~ ✅ Deployed to `memory-7o9.pages.dev`
-- Mobile 3D optimization
-- Accessibility pass
-- Supabase auth + Polar.sh subscriptions
-- Dashboard, chat, settings pages
+## Future Work
+- Mobile performance optimization
+- Accessibility pass (prefers-reduced-motion, aria labels)
+- RAG API integration (supermemory.ai)
+- Dashboard: query history, document management, usage stats
+- Chat and settings pages

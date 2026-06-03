@@ -1,37 +1,42 @@
 ---
 tags: [meta, overview]
 created: 2026-05-28
-updated: 2026-05-28
+updated: 2026-06-03
 ---
 
 # supermemory Landing Page — Overview
 
-A SvelteKit + TypeScript landing page for a SaaS product called "supermemory" (an AI-powered memory/RAG tool). The landing page is built to awwwards-level quality with an immersive 3D cyberpunk aesthetic.
+A SvelteKit + TypeScript SaaS landing page for "Memory" (an AI-powered RAG tool). Originally built with a cyberpunk 3D aesthetic, the project underwent a **full creative reset on 2026-05-29** to a **light + warm design** with native animations, 2D canvas interactivity, and streamlined sections.
 
 ## Stack
 
-- **Framework**: SvelteKit + TypeScript
-- **3D**: Raw Three.js with EffectComposer (bloom + chromatic aberration + vignette)
-- **Animations**: GSAP + Lenis smooth scroll
-- **Style**: Tailwind CSS v4 — cyberpunk dark theme (#050508 bg, #00f0ff cyan, #ff00e5 magenta)
-- **Interactive vector**: Rive
-- **Deploy**: Cloudflare Workers
+- **Framework**: SvelteKit + TypeScript (runes mode)
+- **Styling**: Tailwind CSS v4 — warm light palette (#f7f5f0 bg, #e8634a accent, #2a9d8f secondary)
+- **Animations**: Lenis smooth scroll + native CSS animations + `Reveal` scroll-based entrance + `parallax` action
+- **Interactive**: 2D Canvas network graph on hero (`HeroCanvas.ts`)
+- **3D**: **Removed** — no Three.js in the current codebase
+- **Auth**: Better Auth (email/password + Discord + GitHub OAuth) with D1 database
+- **Billing**: Polar.sh (sandbox) via Better Auth plugin
+- **Deploy**: Cloudflare Workers (`@sveltejs/adapter-cloudflare`)
 
 ## Architecture
 
-Scroll-driven 3D experience: Lenis scroll → scroll3d stores → RAF loop drives camera along 9-waypoint CatmullRom spline, particles morph between 9 shapes, post-processing intensity responds to scroll velocity. DOM text is projected from 3D coordinates (crisp + selectable + SEO).
+Scroll-driven single-page layout: Lenis scroll → `scroll.ts` stores (scrollY, activeSection, sectionProgress) → sticky-stacked full-screen sections with scroll-based entrance animations. No 3D scene, no EffectComposer, no camera spline.
+
+7 sections: Hero → Problem → Solution → HowItWorks → Benchmarks → Pricing → CTA (Footer merged into CTA).
+
+Phase 2 (auth + billing) is scaffolded and functional: Better Auth with D1, Polar.sh subscriptions, Discord/GitHub OAuth, login/signup/dashboard/pricing routes.
 
 ## Key decisions
 
-See [Decisions](decisions.md) (ADR-001 through ADR-008). Notable: raw Three.js over @threlte (v5), projected DOM text over 3D geometry text, 3-pass post-processing pipeline.
-
-## Sections
-
-9 sections: Hero → Brands → Features → Case Studies → Demo → Stats → Pricing → CTA → Footer. See [Sections](sections.md).
+See [Decisions](decisions.md) (ADR-001 through ADR-012). Notable: replaced Three.js with 2D canvas, replaced GSAP with native CSS animations, Better Auth over Supabase Auth, Polar.sh for billing.
 
 ## Status
 
-Phase 1 (landing page) is feature-complete and **deployed** to [memory-7o9.pages.dev](https://memory-7o9.pages.dev). Pending: mobile 3D optimization, accessibility pass, Phase 2 (Supabase auth + Polar.sh subscriptions).
+- **Landing page**: Fully built and deployed to Cloudflare Pages
+- **Auth**: Better Auth + D1 — login, signup, OAuth, session management
+- **Billing**: Polar.sh integrated — checkout, portal, webhook sync
+- **Pending**: RAG API integration, dashboard content, mobile optimization, accessibility pass
 
 ## Related
 

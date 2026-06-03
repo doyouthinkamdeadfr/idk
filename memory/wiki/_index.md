@@ -1,7 +1,7 @@
 ---
 tags: [meta, index]
 created: 2026-05-28
-updated: 2026-05-28
+updated: 2026-06-03
 ---
 
 # Wiki Index
@@ -10,12 +10,13 @@ updated: 2026-05-28
 
 | Page | Summary | Last updated |
 |------|---------|-------------|
-| [Overview](_overview.md) | Top-level synthesis of the supermemory landing page | 2026-05-28 |
-| [Plan](plan.md) | Project plan — stack, architecture, sections, color palette | 2026-05-28 |
-| [Decisions](decisions.md) | Architecture Decision Records (ADR-001 through ADR-008) | 2026-05-28 |
-| [Tech Stack](tech-stack.md) | Technology stack reference with versions and pipeline details | 2026-05-28 |
-| [Architecture](architecture.md) | System architecture — rendering pipeline, 3D scene, data flow | 2026-05-28 |
-| [Sections](sections.md) | Landing page section design (9 sections with camera angles) | 2026-05-28 |
+| [Overview](_overview.md) | Top-level synthesis — light+warm landing page with auth + billing | 2026-06-03 |
+| [Plan](plan.md) | Project plan — stack, architecture, sections, color palette | 2026-06-03 |
+| [Decisions](decisions.md) | Architecture Decision Records (ADR-001 through ADR-012) | 2026-06-03 |
+| [Tech Stack](tech-stack.md) | Technology stack reference with versions and pipeline details | 2026-06-03 |
+| [Architecture](architecture.md) | System architecture — scroll system, 2D canvas, auth data flow | 2026-06-03 |
+| [Sections](sections.md) | Landing page section design (7 sections with backgrounds and primitives) | 2026-06-03 |
+| [Todo Snapshot](todo-snapshot.md) | Current task tracking — completed items and future work | 2026-06-03 |
 
 ## Components
 
@@ -38,10 +39,12 @@ updated: 2026-05-28
 | [Session 003 — Immersive 3D Re-architecture](sessions/003-immersive-rearch.md) | Raw Three.js, camera spline, post-processing, particle morphing | 2026-05-28 |
 | [Session 004 — Deployment](sessions/004-deployment.md) | Cloudflare Pages deploy, wrangler v3 workaround | 2026-05-30 |
 
+> **Note**: Sessions 001-003 describe the **old cyberpunk 3D architecture** which was replaced by the creative reset (2026-05-29). The sessions are preserved for historical reference but do not reflect the current codebase.
+
 ## Raw sources
 
 See `../raw/` — no sources ingested yet.
 
 ---
 
-**Stats**: 6 wiki pages, 4 sessions, 0 components, 0 concepts, 0 raw sources
+**Stats**: 7 wiki pages, 4 sessions, 0 components, 0 concepts, 0 raw sources
