@@ -61,6 +61,19 @@ Built a ChatGPT-style dashboard shell on `phase-3-dashboard` branch:
 
 ## [2026-06-04] rag | Chat + document API routes
 
+## [2026-06-04] rag | Frontend wiring — ChatInput, chat views, sidebar, documents
+
+Wired up all dashboard UI to real RAG API:
+
+- Rewrote ChatInput: + menu for photos/files/links, attachment chips, voice (Web Speech API), send as payload with attachments
+- New chat page: creates chat via API, sends FormData, reads SSE stream, navigates to chat view
+- Existing chat page: loads real message history, sends messages with streaming, shows source citations
+- Sidebar: loads real chats via API, pin/archive/delete hit live endpoints
+- Documents page: loads real docs, upload via file picker, delete documents
+- Created `src/lib/sse.ts` — shared SSE stream reader
+- Updated RecentChatItem to use API response type
+- Created `memory/wiki/rag-frontend.md`
+
 Built all RAG API endpoints:
 
 - `GET/POST /api/chats` — list and create chat sessions

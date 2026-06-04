@@ -1,9 +1,8 @@
 <script lang="ts">
 	import ChatMenu from './ChatMenu.svelte';
-	import type { MockChat } from '$lib/mock';
 
 	interface Props {
-		chat: MockChat;
+		chat: { id: string; title: string; pinned: number | boolean; archived: number | boolean };
 		active: boolean;
 		onPin: (id: string) => void;
 		onArchive: (id: string) => void;

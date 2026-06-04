@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import RecentChatItem from './RecentChatItem.svelte';
-	import { mockChats } from '$lib/mock';
 
 	interface Props {
 		open: boolean;
@@ -13,14 +12,24 @@
 	let user = $derived($page.data.session?.user);
 	let userMenuOpen = $state(false);
 	let moreMenuOpen = $state(false);
-	let recents = $state([...mockChats]);
+	let recents = $state<Array<{id: string; title: string; pinned: number; archived: number; created_at: string; updated_at: string}>>([]);
+	let loaded = $state(false);
+
+	$effect(() => {
+		if (!loaded) {
+			fetch('/api/chats').then(r => r.json()).then((data) => {
+				recents = data;
+				loaded = true;
+			});
+		}
+	});
 
 	let sortedRecents = $derived(
 		recents
 			.filter((c) => !c.archived)
 			.sort((a, b) => {
 				if (a.pinned !== b.pinned) return a.pinned ? -1 : 1;
-				return b.updatedAt.getTime() - a.updatedAt.getTime();
+				return new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime();
 			})
 	);
 
@@ -53,15 +62,30 @@
 		window.location.href = '/dashboard';
 	}
 
-	function togglePin(id: string) {
-		recents = recents.map((c) => (c.id === id ? { ...c, pinned: !c.pinned } : c));
+	async function togglePin(id: string) {
+		const chat = recents.find(c => c.id === id);
+		if (!chat) return;
+		await fetch(`/api/chats/${id}`, {
+			method: 'PATCH',
+			headers: { 'content-type': 'application/json' },
+			body: JSON.stringify({ pinned: !chat.pinned })
+		});
+		recents = recents.map((c) => (c.id === id ? { ...c, pinned: c.pinned ? 0 : 1 } : c));
 	}
 
-	function toggleArchive(id: string) {
-		recents = recents.map((c) => (c.id === id ? { ...c, archived: !c.archived } : c));
+	async function toggleArchive(id: string) {
+		const chat = recents.find(c => c.id === id);
+		if (!chat) return;
+		await fetch(`/api/chats/${id}`, {
+			method: 'PATCH',
+			headers: { 'content-type': 'application/json' },
+			body: JSON.stringify({ archived: !chat.archived })
+		});
+		recents = recents.map((c) => (c.id === id ? { ...c, archived: c.archived ? 0 : 1 } : c));
 	}
 
-	function deleteChat(id: string) {
+	async function deleteChat(id: string) {
+		await fetch(`/api/chats/${id}`, { method: 'DELETE' });
 		recents = recents.filter((c) => c.id !== id);
 	}
 
