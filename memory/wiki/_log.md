@@ -59,6 +59,18 @@ Built a ChatGPT-style dashboard shell on `phase-3-dashboard` branch:
 
 ## [2026-06-04] rag | OpenRouter client + RAG engine + document processor
 
+## [2026-06-04] rag | Chat + document API routes
+
+Built all RAG API endpoints:
+
+- `GET/POST /api/chats` — list and create chat sessions
+- `PATCH/DELETE /api/chats/[id]` — update and delete chats
+- `GET /api/chats/[id]/messages` — fetch message history
+- `POST /api/chats/[id]/messages` — main RAG endpoint: accepts multipart with text + files[] + links[], processes attachments (extract/chunk/embed), searches similar chunks, streams LLM response via SSE
+- `GET /api/documents` — list user's documents
+- `DELETE /api/documents/[id]` — delete document + chunks
+- Created `memory/wiki/rag-api.md` documenting all endpoints and SSE format
+
 Built the core RAG server utilities:
 
 - `src/lib/server/openrouter.ts` — OpenRouter client: embeddings (text-embedding-3-small), vision (gpt-4o for image descriptions), streaming chat (gpt-4o-mini)

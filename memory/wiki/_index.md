@@ -19,6 +19,7 @@ updated: 2026-06-03
 | [Todo Snapshot](todo-snapshot.md) | Current task tracking — completed items and future work | 2026-06-03 |
 | [RAG Database](rag-database.md) | RAG feature database schema (chat, message, document, document_chunk, chat_document) | 2026-06-04 |
 | [RAG Server](rag-server.md) | OpenRouter client, RAG engine, document processing utilities | 2026-06-04 |
+| [RAG API](rag-api.md) | Chat and document API routes with SSE streaming | 2026-06-04 |
 
 ## Components
 
@@ -50,4 +51,4 @@ See `../raw/` — no sources ingested yet.
 
 ---
 
-**Stats**: 9 wiki pages, 5 sessions, 0 components, 0 concepts, 0 raw sources
+**Stats**: 10 wiki pages, 5 sessions, 0 components, 0 concepts, 0 raw sources
