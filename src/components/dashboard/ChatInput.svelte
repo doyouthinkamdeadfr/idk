@@ -106,7 +106,7 @@
 
 	// Voice input
 	let isRecording = $state(false);
-	let recognition: SpeechRecognition | null = null;
+	let recognition: any = null;
 
 	function toggleMic() {
 		if (isRecording) {
@@ -125,9 +125,9 @@
 		recognition.interimResults = true;
 		recognition.lang = 'en-US';
 
-		recognition.onresult = (e: SpeechRecognitionEvent) => {
-			const transcript = Array.from(e.results)
-				.map((r) => r[0].transcript)
+		recognition.onresult = (e: any) => {
+			const transcript = Array.from(e.results as any[])
+				.map((r: any) => r[0].transcript)
 				.join('');
 			text = transcript;
 		};

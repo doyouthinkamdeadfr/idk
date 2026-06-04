@@ -12,21 +12,24 @@
 
 	let { chat, active, onPin, onArchive, onDelete, onShare }: Props = $props();
 
+	let pinned = $derived(!!chat.pinned);
+	let archived = $derived(!!chat.archived);
+
 	function handleClick() {
-		if (chat.archived) return;
+		if (archived) return;
 		window.location.href = `/dashboard/c/${chat.id}`;
 	}
 </script>
 
 <button
 	onclick={handleClick}
-	class="group flex w-full items-center gap-1.5 rounded-lg px-2.5 py-2 text-left text-xs transition-colors {active ? 'bg-accent-primary/10 text-accent-primary' : 'text-text-primary hover:bg-bg-primary'} {chat.archived ? 'opacity-40' : ''}"
+	class="group flex w-full items-center gap-1.5 rounded-lg px-2.5 py-2 text-left text-xs transition-colors {active ? 'bg-accent-primary/10 text-accent-primary' : 'text-text-primary hover:bg-bg-primary'} {archived ? 'opacity-40' : ''}"
 >
-	{#if chat.pinned}
+	{#if pinned}
 		<svg class="h-3 w-3 flex-shrink-0 text-text-muted" fill="currentColor" viewBox="0 0 20 20">
 			<path d="M5 5a2 2 0 012-2h6a2 2 0 012 2v16l-5-3.5L5 21V5z" />
 		</svg>
 	{/if}
 	<span class="flex-1 truncate">{chat.title}</span>
-	<ChatMenu chatId={chat.id} pinned={chat.pinned} archived={chat.archived} {onPin} {onArchive} {onDelete} {onShare} />
+	<ChatMenu chatId={chat.id} {pinned} {archived} {onPin} {onArchive} {onDelete} {onShare} />
 </button>

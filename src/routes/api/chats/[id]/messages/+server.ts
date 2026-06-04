@@ -96,7 +96,7 @@ export const POST: RequestHandler = async ({ params, request, locals, platform }
 		}
 
 		await db.prepare(`INSERT OR IGNORE INTO chat_document (chat_id, document_id) VALUES (?, ?)`).bind(params.id, docId).run();
-		attachmentInfos.push({ type: 'link', url, documentId: docId });
+		attachmentInfos.push({ type: 'link', name: url, url, documentId: docId });
 	}
 
 	// Save user message
@@ -118,6 +118,7 @@ export const POST: RequestHandler = async ({ params, request, locals, platform }
 	}
 
 	// SSE streaming response
+	const userId = locals.user.id;
 	const stream = new ReadableStream({
 		async start(controller) {
 			const encoder = new TextEncoder();
@@ -136,7 +137,7 @@ export const POST: RequestHandler = async ({ params, request, locals, platform }
 
 				if (text.trim()) {
 					// Search across all user documents
-					const searchResults = await searchSimilar(db, locals.user.id, text, platform, 10);
+					const searchResults = await searchSimilar(db, userId, text, platform, 10);
 					contextChunks = searchResults;
 				}
 
@@ -168,7 +169,7 @@ export const POST: RequestHandler = async ({ params, request, locals, platform }
 				const msgId = crypto.randomUUID();
 				await db
 					.prepare(`INSERT INTO message (id, chat_id, user_id, role, content, sources, created_at) VALUES (?, ?, ?, 'assistant', ?, ?, ?)`)
-					.bind(msgId, params.id, locals.user.id, fullContent, sources.length > 0 ? JSON.stringify(sources) : null, new Date().toISOString())
+					.bind(msgId, params.id, userId, fullContent, sources.length > 0 ? JSON.stringify(sources) : null, new Date().toISOString())
 					.run();
 
 				send('done', { messageId: msgId, sources });
