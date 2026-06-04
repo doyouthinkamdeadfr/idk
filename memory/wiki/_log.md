@@ -57,6 +57,16 @@ Built a ChatGPT-style dashboard shell on `phase-3-dashboard` branch:
 
 ## [2026-06-04] rag | RAG database schema + migration
 
+## [2026-06-04] rag | OpenRouter client + RAG engine + document processor
+
+Built the core RAG server utilities:
+
+- `src/lib/server/openrouter.ts` — OpenRouter client: embeddings (text-embedding-3-small), vision (gpt-4o for image descriptions), streaming chat (gpt-4o-mini)
+- `src/lib/server/rag.ts` — RAG engine: text chunking, cosine similarity search, document indexing, prompt building
+- `src/lib/server/documents.ts` — Document processor: text file extraction, image description, link content fetching, MIME detection
+- `src/app.d.ts` — Added OPENROUTER_API_KEY to Platform.env type
+- Created `memory/wiki/rag-server.md` documenting all three modules
+
 Built the RAG database foundation:
 
 - Created 5 new Drizzle tables in `src/db/schema.ts`: chat, message, document, document_chunk, chat_document
