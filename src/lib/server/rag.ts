@@ -1,5 +1,10 @@
 import { embed } from './openrouter';
 
+const VECTORIZE_MAX_DIMS = 1536;
+function truncate(vec: number[]): number[] {
+	return vec.length > VECTORIZE_MAX_DIMS ? vec.slice(0, VECTORIZE_MAX_DIMS) : vec;
+}
+
 export function chunkText(text: string, chunkSize = 500, overlap = 50): string[] {
 	const chunks: string[] = [];
 	let i = 0;
@@ -63,7 +68,7 @@ export async function indexDocument(
 
 		vectors.push({
 			id: chunkId,
-			values: embedding,
+			values: truncate(embedding),
 			metadata: {
 				documentId,
 				documentName,

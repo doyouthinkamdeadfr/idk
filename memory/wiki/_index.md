@@ -22,6 +22,7 @@ updated: 2026-06-03
 | [RAG API](rag-api.md) | Chat and document API routes with SSE streaming | 2026-06-04 |
 | [RAG Frontend](rag-frontend.md) | Dashboard UI wiring — ChatInput, chat views, sidebar, documents | 2026-06-04 |
 | [RAG Vectorize](rag-vectorize.md) | Vectorize migration — Cloudflare Vectorize replaces in-memory search | 2026-06-04 |
+| [RAG Free Models](rag-free-models.md) | Switch to free OpenRouter models + archived chats view | 2026-06-04 |
 
 ## Components
 
@@ -53,4 +54,4 @@ See `../raw/` — no sources ingested yet.
 
 ---
 
-**Stats**: 12 wiki pages, 5 sessions, 0 components, 0 concepts, 0 raw sources
+**Stats**: 13 wiki pages, 5 sessions, 0 components, 0 concepts, 0 raw sources

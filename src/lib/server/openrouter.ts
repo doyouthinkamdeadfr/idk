@@ -1,3 +1,7 @@
+const EMBED_MODEL = 'nvidia/llama-nemotron-embed-vl-1b-v2:free';
+const CHAT_MODEL = 'openrouter/free';
+const VISION_MODEL = 'openrouter/free';
+
 const OPENROUTER_BASE = 'https://openrouter.ai/api/v1';
 
 interface OpenRouterConfig {
@@ -28,8 +32,15 @@ function getApiKey(platform: App.Platform | undefined): string {
 	return env.OPENROUTER_API_KEY ?? '';
 }
 
+const MAX_DIMS = 1536;
+
+function truncate(vec: number[]): number[] {
+	return vec.length > MAX_DIMS ? vec.slice(0, MAX_DIMS) : vec;
+}
+
 export async function embed(text: string, platform: App.Platform | undefined): Promise<number[]> {
-	const apiKey = getApiKey(platform);
+	const env = (platform as any)?.env ?? {};
+	const apiKey = env.OPENROUTER_API_KEY as string | undefined;
 	if (!apiKey) throw new Error('OPENROUTER_API_KEY not configured');
 
 	const res = await fetch(`${OPENROUTER_BASE}/embeddings`, {
@@ -39,7 +50,7 @@ export async function embed(text: string, platform: App.Platform | undefined): P
 			Authorization: `Bearer ${apiKey}`
 		},
 		body: JSON.stringify({
-			model: 'text-embedding-3-small',
+			model: EMBED_MODEL,
 			input: text
 		})
 	});
@@ -50,7 +61,7 @@ export async function embed(text: string, platform: App.Platform | undefined): P
 	}
 
 	const json: EmbeddingResponse = await res.json();
-	return json.data[0].embedding;
+	return truncate(json.data[0].embedding);
 }
 
 export async function describeImage(
@@ -68,7 +79,7 @@ export async function describeImage(
 			Authorization: `Bearer ${apiKey}`
 		},
 		body: JSON.stringify({
-			model: 'gpt-4o',
+			model: VISION_MODEL,
 			messages: [
 				{
 					role: 'user',
@@ -108,7 +119,7 @@ export async function chatComplete(
 			Authorization: `Bearer ${apiKey}`
 		},
 		body: JSON.stringify({
-			model: 'gpt-4o-mini',
+			model: CHAT_MODEL,
 			messages,
 			stream: true,
 			max_tokens: 2048

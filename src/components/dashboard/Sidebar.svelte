@@ -14,6 +14,7 @@
 	let moreMenuOpen = $state(false);
 	let recents = $state<Array<{id: string; title: string; pinned: number; archived: number; created_at: string; updated_at: string}>>([]);
 	let loaded = $state(false);
+	let showArchived = $state(false);
 
 	$effect(() => {
 		if (!loaded) {
@@ -26,7 +27,7 @@
 
 	let sortedRecents = $derived(
 		recents
-			.filter((c) => !c.archived)
+			.filter((c) => showArchived ? !!c.archived : !c.archived)
 			.sort((a, b) => {
 				if (a.pinned !== b.pinned) return a.pinned ? -1 : 1;
 				return new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime();
@@ -163,7 +164,7 @@
 						</button>
 						{#if moreMenuOpen}
 							<div class="absolute left-0 top-full z-50 mt-1 w-44 rounded-xl border border-border-subtle bg-white py-1 shadow-lg" onclick={(e) => e.stopPropagation()}>
-								<button onclick={() => moreMenuOpen = false} class="flex w-full items-center gap-2.5 px-3 py-2 text-xs text-text-primary hover:bg-bg-primary transition-colors">
+								<button onclick={() => { moreMenuOpen = false; showArchived = true; }} class="flex w-full items-center gap-2.5 px-3 py-2 text-xs text-text-primary hover:bg-bg-primary transition-colors">
 									<svg class="h-3.5 w-3.5 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></svg>
 									Archived chats
 								</button>
@@ -178,7 +179,10 @@
 
 				<div class="mt-6 mb-4">
 					<div class="flex items-center justify-between px-2.5 py-1">
-						<span class="text-xs font-semibold tracking-wider text-text-muted uppercase">Recents</span>
+						<span class="text-xs font-semibold tracking-wider text-text-muted uppercase">{showArchived ? 'Archived' : 'Recents'}</span>
+						{#if showArchived}
+							<button onclick={() => showArchived = false} class="text-xs text-accent-primary hover:underline">Active chats</button>
+						{/if}
 					</div>
 					<div class="mt-1 space-y-0.5">
 						{#each sortedRecents as chat (chat.id)}

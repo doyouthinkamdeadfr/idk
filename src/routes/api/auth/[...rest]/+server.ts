@@ -11,7 +11,8 @@ function getEnv(platform: any) {
 		polarAccessToken: env.POLAR_ACCESS_TOKEN,
 		polarWebhookSecret: env.POLAR_WEBHOOK_SECRET,
 		polarProMonthlyId: env.POLAR_PRO_MONTHLY_ID,
-		polarProAnnualId: env.POLAR_PRO_ANNUAL_ID
+		polarProAnnualId: env.POLAR_PRO_ANNUAL_ID,
+		authSecret: env.BETTER_AUTH_SECRET
 	};
 }
 

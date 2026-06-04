@@ -116,3 +116,20 @@ Built the RAG database foundation:
 - Skipped Lenis scroll init when on dashboard to prevent scroll conflicts
 - Centered empty chat state vertically instead of pinning input to bottom
 - Auto-cycle welcome text on hard refresh (removed manual click interaction)
+
+## [2026-06-04] fix | Switch to free OpenRouter models
+
+The OpenRouter API key had no credits, causing 402 errors on all model calls. Switched all models to free alternatives:
+
+- Embeddings: `nvidia/llama-nemotron-embed-vl-1b-v2:free` (2048-dim, truncated to 1536 for Vectorize)
+- Chat: `openrouter/free` (auto-selects from available free chat models)
+- Vision: `openrouter/free` (auto-selects free vision model)
+
+Attempted Workers AI binding (fails in Pages Functions — binding not available at runtime) and Workers AI REST API (requires account-level token), but settled on OpenRouter free models as the simplest solution.
+
+Removed `[ai]` binding from wrangler.toml and `Ai` type declarations.
+
+Also added archived chats view to sidebar — "More → Archived chats" toggle with "Active chats" back link.
+
+Created `memory/wiki/rag-free-models.md`.
+

@@ -1,5 +1,10 @@
 import { createAuth } from '$lib/server/auth';
-import type { Handle } from '@sveltejs/kit';
+import type { Handle, HandleServerError } from '@sveltejs/kit';
+
+export const handleError: HandleServerError = async ({ error, event }) => {
+	console.error('SvelteKit error:', error, 'URL:', event.url.pathname);
+	return { message: String(error) };
+};
 
 export const handle: Handle = async ({ event, resolve }) => {
 	const env = (event.platform as any)?.env ?? {};
@@ -12,7 +17,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 			polarAccessToken: env.POLAR_ACCESS_TOKEN,
 			polarWebhookSecret: env.POLAR_WEBHOOK_SECRET,
 			polarProMonthlyId: env.POLAR_PRO_MONTHLY_ID,
-			polarProAnnualId: env.POLAR_PRO_ANNUAL_ID
+			polarProAnnualId: env.POLAR_PRO_ANNUAL_ID,
+			authSecret: env.BETTER_AUTH_SECRET
 		});
 		const session = await auth.api.getSession({ headers: event.request.headers });
 		event.locals.session = session;

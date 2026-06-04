@@ -16,6 +16,7 @@ export function createAuth(
 		polarWebhookSecret?: string;
 		polarProMonthlyId?: string;
 		polarProAnnualId?: string;
+		authSecret?: string;
 	} = {}
 ) {
 	const plugins: any[] = [];
@@ -117,6 +118,7 @@ export function createAuth(
 			provider: 'sqlite',
 			schema
 		}),
+		secret: secrets.authSecret,
 		emailAndPassword: {
 			enabled: true
 		},

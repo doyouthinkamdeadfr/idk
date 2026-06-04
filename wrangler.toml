@@ -12,3 +12,4 @@ database_id = "cb358435-7124-4029-a6d9-76eea9316ae2"
 [[vectorize]]
 binding = "VECTORIZE"
 index_name = "memory-rag-index"
+
