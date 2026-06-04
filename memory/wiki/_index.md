@@ -17,6 +17,7 @@ updated: 2026-06-03
 | [Architecture](architecture.md) | System architecture — scroll system, 2D canvas, auth data flow | 2026-06-03 |
 | [Sections](sections.md) | Landing page section design (7 sections with backgrounds and primitives) | 2026-06-03 |
 | [Todo Snapshot](todo-snapshot.md) | Current task tracking — completed items and future work | 2026-06-03 |
+| [RAG Database](rag-database.md) | RAG feature database schema (chat, message, document, document_chunk, chat_document) | 2026-06-04 |
 
 ## Components
 
@@ -48,4 +49,4 @@ See `../raw/` — no sources ingested yet.
 
 ---
 
-**Stats**: 7 wiki pages, 5 sessions, 0 components, 0 concepts, 0 raw sources
+**Stats**: 8 wiki pages, 5 sessions, 0 components, 0 concepts, 0 raw sources

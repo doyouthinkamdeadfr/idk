@@ -55,6 +55,15 @@ Built a ChatGPT-style dashboard shell on `phase-3-dashboard` branch:
 
 ## [2026-06-03] fix | Dashboard layout fixes
 
+## [2026-06-04] rag | RAG database schema + migration
+
+Built the RAG database foundation:
+
+- Created 5 new Drizzle tables in `src/db/schema.ts`: chat, message, document, document_chunk, chat_document
+- Created `migrations/0003_create-rag-tables.sql` with all five tables
+- Tables support: chat sessions with pin/archive, messages with attachments + source citations, documents with processing status, text chunks with embeddings, chat-document junction
+- Created `memory/wiki/rag-database.md` documenting the schema
+
 - Hid landing page Navbar + ProgressBar on dashboard routes (was overlapping dashboard TopBar)
 - Skipped Lenis scroll init when on dashboard to prevent scroll conflicts
 - Centered empty chat state vertically instead of pinning input to bottom

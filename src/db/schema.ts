@@ -59,4 +59,52 @@ export const subscription = sqliteTable('subscription', {
 	updatedAt: text('updated_at').notNull()
 });
 
-export const schema = { user, session, account, verification, subscription };
+export const chat = sqliteTable('chat', {
+	id: text('id').primaryKey().notNull(),
+	userId: text('user_id').notNull().references(() => user.id),
+	title: text('title').notNull().default('New Chat'),
+	pinned: integer('pinned').notNull().default(0),
+	archived: integer('archived').notNull().default(0),
+	createdAt: text('created_at').notNull(),
+	updatedAt: text('updated_at').notNull()
+});
+
+export const message = sqliteTable('message', {
+	id: text('id').primaryKey().notNull(),
+	chatId: text('chat_id').notNull().references(() => chat.id),
+	userId: text('user_id').notNull().references(() => user.id),
+	role: text('role', { enum: ['user', 'assistant'] }).notNull(),
+	content: text('content').notNull(),
+	attachments: text('attachments'),
+	sources: text('sources'),
+	createdAt: text('created_at').notNull()
+});
+
+export const document = sqliteTable('document', {
+	id: text('id').primaryKey().notNull(),
+	userId: text('user_id').notNull().references(() => user.id),
+	name: text('name').notNull(),
+	type: text('type', { enum: ['file', 'image', 'link'] }).notNull(),
+	mime: text('mime'),
+	size: integer('size'),
+	content: text('content'),
+	status: text('status', { enum: ['processing', 'ready', 'error'] }).notNull().default('processing'),
+	error: text('error'),
+	createdAt: text('created_at').notNull(),
+	updatedAt: text('updated_at').notNull()
+});
+
+export const documentChunk = sqliteTable('document_chunk', {
+	id: text('id').primaryKey().notNull(),
+	documentId: text('document_id').notNull().references(() => document.id),
+	content: text('content').notNull(),
+	embedding: text('embedding'),
+	chunkIndex: integer('chunk_index').notNull()
+});
+
+export const chatDocument = sqliteTable('chat_document', {
+	chatId: text('chat_id').notNull().references(() => chat.id),
+	documentId: text('document_id').notNull().references(() => document.id)
+});
+
+export const schema = { user, session, account, verification, subscription, chat, message, document, documentChunk, chatDocument };
