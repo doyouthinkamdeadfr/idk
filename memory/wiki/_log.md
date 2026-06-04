@@ -63,6 +63,19 @@ Built a ChatGPT-style dashboard shell on `phase-3-dashboard` branch:
 
 ## [2026-06-04] rag | Frontend wiring — ChatInput, chat views, sidebar, documents
 
+## [2026-06-04] rag | Vectorize migration — replaced in-memory search with Cloudflare Vectorize
+
+Migrated from D1 in-memory cosine similarity to Cloudflare Vectorize:
+
+- Created `memory-rag-index` (256 dims, cosine metric)
+- Added `[[vectorize]]` binding to wrangler.toml
+- Rewrote `indexDocument`: batch upserts vectors with metadata to Vectorize (D1 kept as backup)
+- Rewrote `searchSimilar`: queries Vectorize instead of loading all chunks
+- Removed `cosineSimilarity` function
+- Added `src/env.d.ts` with Worker globals (VectorizeIndex, D1Database)
+- Updated `.dev.vars` with current OPENROUTER_API_KEY
+- Created `memory/wiki/rag-vectorize.md`
+
 Wired up all dashboard UI to real RAG API:
 
 - Rewrote ChatInput: + menu for photos/files/links, attachment chips, voice (Web Speech API), send as payload with attachments

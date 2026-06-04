@@ -30,7 +30,7 @@ declare global {
 			session: typeof App.Locals.session;
 		}
 		interface Platform {
-			env: { DB: D1Database; POLAR_ACCESS_TOKEN?: string; POLAR_WEBHOOK_SECRET?: string; POLAR_PRO_MONTHLY_ID?: string; POLAR_PRO_ANNUAL_ID?: string; OPENROUTER_API_KEY?: string };
+			env: { DB: D1Database; VECTORIZE: VectorizeIndex; POLAR_ACCESS_TOKEN?: string; POLAR_WEBHOOK_SECRET?: string; POLAR_PRO_MONTHLY_ID?: string; POLAR_PRO_ANNUAL_ID?: string; OPENROUTER_API_KEY?: string };
 		}
 	}
 }

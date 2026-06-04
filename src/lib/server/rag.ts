@@ -1,7 +1,5 @@
 import { embed } from './openrouter';
 
-const EMBEDDING_DIMS = 256;
-
 export function chunkText(text: string, chunkSize = 500, overlap = 50): string[] {
 	const chunks: string[] = [];
 	let i = 0;
@@ -16,17 +14,6 @@ export function chunkText(text: string, chunkSize = 500, overlap = 50): string[]
 	return chunks;
 }
 
-export function cosineSimilarity(a: number[], b: number[]): number {
-	let dot = 0, normA = 0, normB = 0;
-	for (let i = 0; i < a.length; i++) {
-		dot += a[i] * b[i];
-		normA += a[i] * a[i];
-		normB += b[i] * b[i];
-	}
-	const denom = Math.sqrt(normA) * Math.sqrt(normB);
-	return denom === 0 ? 0 : dot / denom;
-}
-
 export interface ChunkResult {
 	chunkId: string;
 	documentId: string;
@@ -36,60 +23,66 @@ export interface ChunkResult {
 }
 
 export async function searchSimilar(
-	db: D1Database,
-	userId: string,
+	vectorize: VectorizeIndex,
 	query: string,
 	platform: App.Platform | undefined,
 	topK = 10
 ): Promise<ChunkResult[]> {
 	const queryEmbedding = await embed(query, platform);
 
-	const stmt = db.prepare(`
-		SELECT dc.id, dc.document_id, dc.content, dc.embedding, d.name as document_name
-		FROM document_chunk dc
-		JOIN document d ON d.id = dc.document_id
-		WHERE d.user_id = ? AND d.status = 'ready'
-	`);
-	const { results } = await stmt.bind(userId).all() as any;
+	const result = await vectorize.query(queryEmbedding, {
+		topK,
+		returnMetadata: true
+	});
 
-	const scored: ChunkResult[] = [];
-	for (const row of results) {
-		const stored: number[] = JSON.parse(row.embedding);
-		const relevance = cosineSimilarity(queryEmbedding, stored);
-		scored.push({
-			chunkId: row.id,
-			documentId: row.document_id,
-			documentName: row.document_name,
-			content: row.content,
-			relevance
-		});
-	}
-
-	scored.sort((a, b) => b.relevance - a.relevance);
-	return scored.slice(0, topK);
+	return result.matches.map((m: { id: string; score: number; metadata?: Record<string, string> }) => ({
+		chunkId: m.id,
+		documentId: m.metadata?.documentId ?? '',
+		documentName: m.metadata?.documentName ?? '',
+		content: m.metadata?.content ?? '',
+		relevance: m.score
+	}));
 }
 
 export async function indexDocument(
+	vectorize: VectorizeIndex,
 	db: D1Database,
 	userId: string,
 	documentId: string,
 	text: string,
+	documentName: string,
 	platform: App.Platform | undefined
 ): Promise<void> {
 	const chunks = chunkText(text);
+	const vectors: { id: string; values: number[]; metadata: Record<string, string> }[] = [];
 
 	for (let i = 0; i < chunks.length; i++) {
 		const chunkContent = chunks[i];
 		const embedding = await embed(chunkContent, platform);
-		const embeddingJson = JSON.stringify(embedding);
+		const chunkId = crypto.randomUUID();
 
+		vectors.push({
+			id: chunkId,
+			values: embedding,
+			metadata: {
+				documentId,
+				documentName,
+				content: chunkContent,
+				chunkIndex: String(i)
+			}
+		});
+
+		// Keep a copy in D1 for backup/rebuild
 		await db
 			.prepare(
 				`INSERT INTO document_chunk (id, document_id, content, embedding, chunk_index) VALUES (?, ?, ?, ?, ?)`
 			)
-			.bind(crypto.randomUUID(), documentId, chunkContent, embeddingJson, i)
+			.bind(chunkId, documentId, chunkContent, JSON.stringify(embedding), i)
 			.run();
 	}
+
+	// Batch upsert to Vectorize
+	await vectorize.upsert(vectors);
 
 	await db
 		.prepare(`UPDATE document SET status = 'ready', updated_at = ? WHERE id = ?`)

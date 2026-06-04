@@ -21,6 +21,7 @@ updated: 2026-06-03
 | [RAG Server](rag-server.md) | OpenRouter client, RAG engine, document processing utilities | 2026-06-04 |
 | [RAG API](rag-api.md) | Chat and document API routes with SSE streaming | 2026-06-04 |
 | [RAG Frontend](rag-frontend.md) | Dashboard UI wiring — ChatInput, chat views, sidebar, documents | 2026-06-04 |
+| [RAG Vectorize](rag-vectorize.md) | Vectorize migration — Cloudflare Vectorize replaces in-memory search | 2026-06-04 |
 
 ## Components
 
@@ -52,4 +53,4 @@ See `../raw/` — no sources ingested yet.
 
 ---
 
-**Stats**: 11 wiki pages, 5 sessions, 0 components, 0 concepts, 0 raw sources
+**Stats**: 12 wiki pages, 5 sessions, 0 components, 0 concepts, 0 raw sources

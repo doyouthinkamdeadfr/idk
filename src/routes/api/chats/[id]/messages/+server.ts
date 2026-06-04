@@ -22,8 +22,11 @@ export const GET: RequestHandler = async ({ params, locals, platform }) => {
 
 export const POST: RequestHandler = async ({ params, request, locals, platform }) => {
 	if (!locals.user) return unauthorized();
-	const db = ((platform as any)?.env as any)?.DB as D1Database;
+	const env = (platform as any)?.env as any;
+	const db = env.DB as D1Database;
+	const vectorize = env.VECTORIZE as VectorizeIndex;
 	if (!db) return new Response('Database not found', { status: 500 });
+	if (!vectorize) return new Response('Vectorize not found', { status: 500 });
 
 	const form = await request.formData();
 	const text = (form.get('text') as string) ?? '';
@@ -62,7 +65,7 @@ export const POST: RequestHandler = async ({ params, request, locals, platform }
 				.bind(extractedText, now, docId)
 				.run();
 
-			await indexDocument(db, locals.user.id, docId, extractedText, platform);
+			await indexDocument(vectorize, db, locals.user.id, docId, extractedText, file.name, platform);
 		} catch (e: any) {
 			await db
 				.prepare(`UPDATE document SET status = 'error', error = ?, updated_at = ? WHERE id = ?`)
@@ -87,7 +90,7 @@ export const POST: RequestHandler = async ({ params, request, locals, platform }
 		try {
 			const content = await fetchLinkContent(url);
 			await db.prepare(`UPDATE document SET content = ?, updated_at = ? WHERE id = ?`).bind(content, now, docId).run();
-			await indexDocument(db, locals.user.id, docId, content, platform);
+			await indexDocument(vectorize, db, locals.user.id, docId, content, url, platform);
 		} catch (e: any) {
 			await db
 				.prepare(`UPDATE document SET status = 'error', error = ?, updated_at = ? WHERE id = ?`)
@@ -137,7 +140,7 @@ export const POST: RequestHandler = async ({ params, request, locals, platform }
 
 				if (text.trim()) {
 					// Search across all user documents
-					const searchResults = await searchSimilar(db, userId, text, platform, 10);
+					const searchResults = await searchSimilar(vectorize, text, platform, 10);
 					contextChunks = searchResults;
 				}
 
