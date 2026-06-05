@@ -4,6 +4,7 @@
 		name: string;
 		file?: File;
 		url?: string;
+		hash?: string;
 	}
 
 	interface SendPayload {
@@ -69,22 +70,54 @@
 		imageInput?.click();
 	}
 
-	function onFilesPicked(e: Event) {
+	async function onFilesPicked(e: Event) {
 		const input = e.target as HTMLInputElement;
 		if (!input.files) return;
+		const newAtts: Attachment[] = [];
 		for (const f of input.files) {
-			attachments = [...attachments, { type: 'file', name: f.name, file: f }];
+			const buf = await f.arrayBuffer();
+			const hashBytes = await crypto.subtle.digest('SHA-256', buf);
+			const hashHex = [...new Uint8Array(hashBytes)].map(b => b.toString(16).padStart(2, '0')).join('');
+			newAtts.push({ type: 'file', name: f.name, file: f, hash: hashHex });
 		}
+		attachments = [...attachments, ...newAtts];
 		input.value = '';
 	}
 
-	function onImagesPicked(e: Event) {
+	async function onImagesPicked(e: Event) {
 		const input = e.target as HTMLInputElement;
 		if (!input.files) return;
+		const newAtts: Attachment[] = [];
 		for (const f of input.files) {
-			attachments = [...attachments, { type: 'image', name: f.name, file: f }];
+			const buf = await f.arrayBuffer();
+			const hashBytes = await crypto.subtle.digest('SHA-256', buf);
+			const hashHex = [...new Uint8Array(hashBytes)].map(b => b.toString(16).padStart(2, '0')).join('');
+			const compressed = await compressImage(f);
+			newAtts.push({ type: 'image', name: f.name, file: compressed, hash: hashHex });
 		}
+		attachments = [...attachments, ...newAtts];
 		input.value = '';
+	}
+
+	async function compressImage(file: File, maxDim = 2048, quality = 0.95): Promise<File> {
+		const img = await new Promise<HTMLImageElement>((res, rej) => {
+			const i = new Image();
+			i.onload = () => res(i);
+			i.onerror = rej;
+			i.src = URL.createObjectURL(file);
+		});
+		let { width, height } = img;
+		if (width > maxDim || height > maxDim) {
+			if (width > height) { height = Math.round(height * maxDim / width); width = maxDim; }
+			else { width = Math.round(width * maxDim / height); height = maxDim; }
+		}
+		const c = document.createElement('canvas');
+		c.width = width;
+		c.height = height;
+		const ctx = c.getContext('2d')!;
+		ctx.drawImage(img, 0, 0, width, height);
+		URL.revokeObjectURL(img.src);
+		return new Promise((res) => c.toBlob((b) => res(new File([b!], file.name, { type: 'image/jpeg' })), 'image/jpeg', quality));
 	}
 
 	function addLink() {
@@ -182,7 +215,7 @@
 					</svg>
 				</button>
 				{#if addMenuOpen}
-					<div class="absolute top-full left-0 z-50 mt-2 w-48 rounded-xl border border-border-subtle bg-white py-1 shadow-lg" onclick={(e) => e.stopPropagation()}>
+					<div class="absolute bottom-full left-0 z-50 mb-2 w-48 rounded-xl border border-border-subtle bg-white py-1 shadow-lg" onclick={(e) => e.stopPropagation()}>
 						<button onclick={() => { closeAddMenu(); pickImages(); }} class="flex w-full items-center gap-2.5 px-3 py-2 text-xs text-text-primary hover:bg-bg-primary transition-colors">
 							<svg class="h-3.5 w-3.5 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
 							Photos
