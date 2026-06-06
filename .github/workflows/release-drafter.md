@@ -31,3 +31,4 @@ When code is merged to main, draft a new release with auto-generated notes.
    - Title: same as tag
    - Body: grouped list of PRs with their descriptions
    - Set as draft (not published yet)
+
