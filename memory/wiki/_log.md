@@ -132,4 +132,3 @@ Removed `[ai]` binding from wrangler.toml and `Ai` type declarations.
 Also added archived chats view to sidebar — "More → Archived chats" toggle with "Active chats" back link.
 
 Created `memory/wiki/rag-free-models.md`.
-

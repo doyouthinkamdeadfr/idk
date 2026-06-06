@@ -23,7 +23,9 @@
 
 <button
 	onclick={handleClick}
-	class="group flex w-full items-center gap-1.5 rounded-lg px-2.5 py-2 text-left text-xs transition-colors {active ? 'bg-accent-primary/10 text-accent-primary' : 'text-text-primary hover:bg-bg-primary'} {archived ? 'opacity-40' : ''}"
+	class="group flex w-full items-center gap-1.5 rounded-lg px-2.5 py-2 text-left text-xs transition-colors {active
+		? 'bg-accent-primary/10 text-accent-primary'
+		: 'text-text-primary hover:bg-bg-primary'} {archived ? 'opacity-40' : ''}"
 >
 	{#if pinned}
 		<svg class="h-3 w-3 flex-shrink-0 text-text-muted" fill="currentColor" viewBox="0 0 20 20">

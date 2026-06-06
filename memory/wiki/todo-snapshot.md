@@ -11,6 +11,7 @@ sources:
 ## Repo: supermemory landing page
 
 ## Completed: Landing Page
+
 - [x] Full creative reset — warm light palette, 2D canvas hero, native CSS animations
 - [x] 7 sections: Hero → Problem → Solution → HowItWorks → Benchmarks → Pricing → CTA
 - [x] Lenis smooth scroll + scroll stores (activeSection, sectionProgress, velocity)
@@ -22,6 +23,7 @@ sources:
 - [x] Cloudflare Pages deployment via adapter-cloudflare
 
 ## Completed: Auth + Billing
+
 - [x] Better Auth with D1 (Drizzle ORM adapter)
 - [x] Email/password auth
 - [x] Discord + GitHub OAuth
@@ -34,6 +36,7 @@ sources:
 - [x] Pricing page with tier cards + monthly/annual toggle
 
 ## Completed: Dashboard Scaffolding (Phase 3)
+
 - [x] Dashboard layout shell (sidebar + top bar + main area)
 - [x] Auth guard (redirect to /login if no session)
 - [x] Sidebar: New Chat, Search, Library (Documents/Projects), Recents (pin/archive/delete/share), User menu
@@ -46,6 +49,7 @@ sources:
 - [x] ChatInput: + menu (photos/files/recent/links), textarea, mic, send
 
 ## Future
+
 - [ ] RAG API integration (supermemory.ai)
 - [ ] Real chat persistence + backend sync
 - [ ] Real document upload/management
@@ -53,6 +57,7 @@ sources:
 - [ ] Accessibility pass (prefers-reduced-motion, aria labels)
 
 ## Key Context
+
 - **Stack**: SvelteKit + TypeScript + Tailwind v4 + Lenis + Better Auth + D1 + Polar.sh
 - **Design**: Warm light palette (#f7f5f0 bg, #e8634a accent, #2a9d8f secondary)
 - **Animations**: Native CSS + Lenis + Reveal scroll entrance

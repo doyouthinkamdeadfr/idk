@@ -6,7 +6,7 @@
 		'Ask me anything about your data.',
 		'What would you like to know?',
 		'Your knowledge base is waiting.',
-		'What are you curious about?',
+		'What are you curious about?'
 	];
 
 	let line = $state('');

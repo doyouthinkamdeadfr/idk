@@ -13,7 +13,9 @@
 		loading = false;
 	});
 
-	const isPro = $derived(customerState?.subscriptions?.some((s: any) => s.status === 'active') ?? false);
+	const isPro = $derived(
+		customerState?.subscriptions?.some((s: any) => s.status === 'active') ?? false
+	);
 
 	async function handleUpgrade() {
 		try {
@@ -51,7 +53,8 @@
 					<p class="mt-1 text-sm text-text-primary">{user?.name || '—'}</p>
 				</div>
 				<div>
-					<label class="text-xs font-semibold tracking-wider text-text-muted uppercase">Email</label>
+					<label class="text-xs font-semibold tracking-wider text-text-muted uppercase">Email</label
+					>
 					<p class="mt-1 text-sm text-text-primary">{user?.email || '—'}</p>
 				</div>
 			</div>
@@ -64,13 +67,22 @@
 					<p class="text-sm text-text-muted">Loading plan...</p>
 				{:else}
 					<div class="flex items-center gap-3">
-						<span class="rounded-full {isPro ? 'bg-accent-secondary/10 text-accent-secondary' : 'bg-text-muted/10 text-text-muted'} px-3 py-1 text-xs font-semibold">
+						<span
+							class="rounded-full {isPro
+								? 'bg-accent-secondary/10 text-accent-secondary'
+								: 'bg-text-muted/10 text-text-muted'} px-3 py-1 text-xs font-semibold"
+						>
 							{isPro ? 'Pro' : 'Free'}
 						</span>
 						{#if isPro}
-							<button onclick={handlePortal} class="text-sm text-accent-primary hover:underline">Manage subscription</button>
+							<button onclick={handlePortal} class="text-sm text-accent-primary hover:underline"
+								>Manage subscription</button
+							>
 						{:else}
-							<button onclick={handleUpgrade} class="rounded-full bg-accent-primary px-5 py-1.5 text-xs font-semibold text-white hover:bg-accent-primary/90 transition-all active:scale-95">
+							<button
+								onclick={handleUpgrade}
+								class="rounded-full bg-accent-primary px-5 py-1.5 text-xs font-semibold text-white transition-all hover:bg-accent-primary/90 active:scale-95"
+							>
 								Upgrade to Pro
 							</button>
 						{/if}

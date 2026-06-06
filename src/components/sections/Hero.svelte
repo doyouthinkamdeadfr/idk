@@ -43,7 +43,9 @@
 	>
 		<p
 			class="text-xs font-semibold tracking-[0.2em] text-accent-primary uppercase"
-			style="animation: {showContent ? 'slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both' : 'none'}"
+			style="animation: {showContent
+				? 'slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both'
+				: 'none'}"
 		>
 			Memory
 		</p>
@@ -71,14 +73,18 @@
 		</h1>
 		<p
 			class="mt-6 max-w-xl text-lg leading-relaxed text-text-muted md:text-xl"
-			style="animation: {showContent ? 'slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both' : 'none'}"
+			style="animation: {showContent
+				? 'slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both'
+				: 'none'}"
 		>
 			Instantly retrieve, augment, and generate answers grounded in your documents, code, and
 			knowledge base.
 		</p>
 		<div
 			class="mt-10 flex flex-wrap items-center gap-4"
-			style="animation: {showContent ? 'slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both' : 'none'}"
+			style="animation: {showContent
+				? 'slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both'
+				: 'none'}"
 		>
 			<a
 				href="#cta"

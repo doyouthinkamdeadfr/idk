@@ -29,7 +29,7 @@
 
 	async function deleteImage(id: string) {
 		await fetch(`/api/documents/${id}`, { method: 'DELETE' });
-		images = images.filter(d => d.id !== id);
+		images = images.filter((d) => d.id !== id);
 	}
 
 	function formatSize(bytes: number): string {
@@ -53,10 +53,10 @@
 
 	<div class="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
 		{#each images as img (img.id)}
-			<div class="group relative overflow-hidden rounded-2xl border border-border-subtle bg-white transition-shadow hover:shadow-md">
-				<div class="flex aspect-square items-center justify-center bg-bg-primary text-4xl">
-					🖼️
-				</div>
+			<div
+				class="group relative overflow-hidden rounded-2xl border border-border-subtle bg-white transition-shadow hover:shadow-md"
+			>
+				<div class="flex aspect-square items-center justify-center bg-bg-primary text-4xl">🖼️</div>
 				<div class="p-3">
 					<p class="truncate text-sm font-medium text-text-primary">{img.name}</p>
 					<p class="mt-0.5 text-[11px] text-text-muted">
@@ -65,13 +65,15 @@
 					</p>
 				</div>
 				{#if img.content}
-					<div class="absolute inset-0 flex items-end bg-gradient-to-t from-black/60 to-transparent p-3 opacity-0 transition-opacity group-hover:opacity-100">
+					<div
+						class="absolute inset-0 flex items-end bg-gradient-to-t from-black/60 to-transparent p-3 opacity-0 transition-opacity group-hover:opacity-100"
+					>
 						<p class="line-clamp-3 text-xs text-white/90">{img.content}</p>
 					</div>
 				{/if}
 				<button
 					onclick={() => deleteImage(img.id)}
-					class="absolute top-2 right-2 flex h-6 w-6 items-center justify-center rounded-full bg-black/40 text-xs text-white opacity-0 transition-opacity hover:bg-red-500 group-hover:opacity-100"
+					class="absolute top-2 right-2 flex h-6 w-6 items-center justify-center rounded-full bg-black/40 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-red-500"
 				>
 					&times;
 				</button>

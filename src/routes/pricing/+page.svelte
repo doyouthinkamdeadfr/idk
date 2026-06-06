@@ -29,8 +29,12 @@
 		name: 'Pro',
 		monthlyPrice: '$29',
 		annualPrice: '$290',
-		get period() { return isAnnual ? '/year' : '/month'; },
-		get features() { return proFeatures; },
+		get period() {
+			return isAnnual ? '/year' : '/month';
+		},
+		get features() {
+			return proFeatures;
+		},
 		popular: true,
 		action: async () => {
 			if (!session?.user) {
@@ -132,7 +136,11 @@
 								? 'bg-accent-primary text-white hover:bg-accent-primary/90'
 								: 'bg-bg-primary text-text-muted hover:text-accent-primary'}"
 						>
-							{tier.name === 'Pro' ? 'Upgrade' : tier.name === 'Free' ? 'Get Started' : 'Contact Sales'}
+							{tier.name === 'Pro'
+								? 'Upgrade'
+								: tier.name === 'Free'
+									? 'Get Started'
+									: 'Contact Sales'}
 						</button>
 					{:else if tier.name === 'Free'}
 						<a

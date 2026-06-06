@@ -8,7 +8,7 @@ async function smFetch(path: string, apiKey: string, options: RequestInit = {}):
 	const res = await fetch(`${BASE}${path}`, {
 		...options,
 		headers: {
-			...options.headers as Record<string, string>,
+			...(options.headers as Record<string, string>),
 			Authorization: `Bearer ${apiKey}`
 		}
 	});
@@ -19,7 +19,11 @@ async function smFetch(path: string, apiKey: string, options: RequestInit = {}):
 	return res;
 }
 
-export async function ingestText(text: string, containerTag: string, platform: App.Platform | undefined): Promise<string> {
+export async function ingestText(
+	text: string,
+	containerTag: string,
+	platform: App.Platform | undefined
+): Promise<string> {
 	const apiKey = getKey(platform);
 	if (!apiKey) throw new Error('SUPERMEMORY_API_KEY not configured');
 
@@ -35,7 +39,13 @@ export async function ingestText(text: string, containerTag: string, platform: A
 	return json.id;
 }
 
-export async function uploadFile(buffer: ArrayBuffer, name: string, mime: string, containerTag: string, platform: App.Platform | undefined): Promise<string> {
+export async function uploadFile(
+	buffer: ArrayBuffer,
+	name: string,
+	mime: string,
+	containerTag: string,
+	platform: App.Platform | undefined
+): Promise<string> {
 	const apiKey = getKey(platform);
 	if (!apiKey) throw new Error('SUPERMEMORY_API_KEY not configured');
 
@@ -52,7 +62,10 @@ export async function uploadFile(buffer: ArrayBuffer, name: string, mime: string
 	return json.id;
 }
 
-export async function getDocument(id: string, platform: App.Platform | undefined): Promise<{ id: string; status: string }> {
+export async function getDocument(
+	id: string,
+	platform: App.Platform | undefined
+): Promise<{ id: string; status: string }> {
 	const apiKey = getKey(platform);
 	if (!apiKey) throw new Error('SUPERMEMORY_API_KEY not configured');
 
@@ -61,18 +74,28 @@ export async function getDocument(id: string, platform: App.Platform | undefined
 	return { id: json.id, status: json.status };
 }
 
-export async function waitForProcessing(id: string, platform: App.Platform | undefined, timeoutMs = 30000): Promise<void> {
+export async function waitForProcessing(
+	id: string,
+	platform: App.Platform | undefined,
+	timeoutMs = 30000
+): Promise<void> {
 	const start = Date.now();
 	while (Date.now() - start < timeoutMs) {
 		const doc = await getDocument(id, platform);
 		if (doc.status === 'done') return;
-		if (doc.status === 'failed') throw new Error(`Supermemory processing failed for document ${id}`);
-		await new Promise(r => setTimeout(r, 500));
+		if (doc.status === 'failed')
+			throw new Error(`Supermemory processing failed for document ${id}`);
+		await new Promise((r) => setTimeout(r, 500));
 	}
 	throw new Error(`Supermemory processing timed out for document ${id}`);
 }
 
-export async function search(query: string, containerTag: string, platform: App.Platform | undefined, limit = 5): Promise<{ content: string; score: number }[]> {
+export async function search(
+	query: string,
+	containerTag: string,
+	platform: App.Platform | undefined,
+	limit = 5
+): Promise<{ content: string; score: number }[]> {
 	const apiKey = getKey(platform);
 	if (!apiKey) throw new Error('SUPERMEMORY_API_KEY not configured');
 

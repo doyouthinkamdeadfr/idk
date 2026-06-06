@@ -11,7 +11,7 @@
 			<p class="mt-1 text-sm text-text-muted">{projects.length} projects</p>
 		</div>
 		<button
-			class="rounded-full bg-accent-primary px-5 py-2 text-sm font-semibold text-white hover:bg-accent-primary/90 transition-all active:scale-95"
+			class="rounded-full bg-accent-primary px-5 py-2 text-sm font-semibold text-white transition-all hover:bg-accent-primary/90 active:scale-95"
 		>
 			+ New Project
 		</button>
@@ -19,9 +19,11 @@
 
 	<div class="mt-8 grid gap-4 md:grid-cols-2">
 		{#each projects as proj (proj.id)}
-			<div class="rounded-2xl border border-border-subtle bg-white p-6 transition-shadow hover:shadow-sm">
+			<div
+				class="rounded-2xl border border-border-subtle bg-white p-6 transition-shadow hover:shadow-sm"
+			>
 				<h3 class="text-base font-semibold text-text-primary">{proj.name}</h3>
-				<p class="mt-1 text-xs text-text-muted line-clamp-2">{proj.description}</p>
+				<p class="mt-1 line-clamp-2 text-xs text-text-muted">{proj.description}</p>
 				<div class="mt-4 flex items-center gap-2">
 					<span class="text-xs text-text-muted">{proj.docCount} documents</span>
 					<span class="h-1 w-1 rounded-full bg-border-subtle"></span>

@@ -18,8 +18,8 @@
 			</Reveal>
 			<Reveal progress={sectionProgress} stagger={0.08}>
 				<p class="mx-auto mt-6 max-w-lg text-base leading-relaxed text-text-muted md:text-lg">
-					Join thousands of teams using Memory to retrieve, augment, and generate insights
-					from their data.
+					Join thousands of teams using Memory to retrieve, augment, and generate insights from
+					their data.
 				</p>
 			</Reveal>
 			<Reveal progress={sectionProgress} stagger={0.14}>

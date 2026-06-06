@@ -42,7 +42,10 @@
 	});
 </script>
 
-<div class="fixed inset-0 -z-10 transition-colors duration-700" style="background: {isDashboard ? '#f7f5f0' : bgStyle}"></div>
+<div
+	class="fixed inset-0 -z-10 transition-colors duration-700"
+	style="background: {isDashboard ? '#f7f5f0' : bgStyle}"
+></div>
 
 {#if $navigating}
 	<PageLoader />

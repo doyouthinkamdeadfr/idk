@@ -34,7 +34,7 @@
 	<div class="relative">
 		<button
 			onclick={togglePlan}
-			class="flex items-center gap-1.5 text-lg font-bold tracking-tight text-text-primary hover:text-accent-primary transition-colors"
+			class="flex items-center gap-1.5 text-lg font-bold tracking-tight text-text-primary transition-colors hover:text-accent-primary"
 		>
 			Memory
 			<svg class="h-4 w-4 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -42,18 +42,29 @@
 			</svg>
 		</button>
 		{#if planOpen}
-			<div class="absolute top-full left-0 mt-2 w-56 rounded-xl border border-border-subtle bg-white p-4 shadow-lg" onclick={(e) => e.stopPropagation()}>
+			<div
+				class="absolute top-full left-0 mt-2 w-56 rounded-xl border border-border-subtle bg-white p-4 shadow-lg"
+				onclick={(e) => e.stopPropagation()}
+			>
 				<p class="text-xs font-semibold tracking-wider text-text-muted uppercase">Current Plan</p>
 				<div class="mt-2 flex items-center gap-2">
-					<span class="rounded-full {isPro ? 'bg-accent-secondary/10 text-accent-secondary' : 'bg-text-muted/10 text-text-muted'} px-2.5 py-0.5 text-xs font-semibold">
+					<span
+						class="rounded-full {isPro
+							? 'bg-accent-secondary/10 text-accent-secondary'
+							: 'bg-text-muted/10 text-text-muted'} px-2.5 py-0.5 text-xs font-semibold"
+					>
 						{isPro ? 'Pro' : 'Free'}
 					</span>
 				</div>
 				<div class="mt-3 border-t border-border-subtle pt-3">
 					{#if isPro}
-						<a href="/dashboard/settings" class="block text-sm text-accent-primary hover:underline">Manage plan →</a>
+						<a href="/dashboard/settings" class="block text-sm text-accent-primary hover:underline"
+							>Manage plan →</a
+						>
 					{:else}
-						<a href="/pricing" class="block text-sm text-accent-primary hover:underline">View plans →</a>
+						<a href="/pricing" class="block text-sm text-accent-primary hover:underline"
+							>View plans →</a
+						>
 					{/if}
 				</div>
 			</div>
@@ -69,7 +80,7 @@
 		</a>
 		<button
 			onclick={handleNewChat}
-			class="flex h-8 w-8 items-center justify-center rounded-lg text-text-muted hover:text-accent-primary hover:bg-bg-primary transition-all"
+			class="flex h-8 w-8 items-center justify-center rounded-lg text-text-muted transition-all hover:bg-bg-primary hover:text-accent-primary"
 		>
 			<svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />

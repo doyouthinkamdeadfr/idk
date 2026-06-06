@@ -1,7 +1,10 @@
 import type { RequestHandler } from './$types';
 
 function unauthorized(): Response {
-	return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401, headers: { 'content-type': 'application/json' } });
+	return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+		status: 401,
+		headers: { 'content-type': 'application/json' }
+	});
 }
 
 export const PATCH: RequestHandler = async ({ params, request, locals, platform }) => {
@@ -15,9 +18,18 @@ export const PATCH: RequestHandler = async ({ params, request, locals, platform 
 	const sets: string[] = [];
 	const vals: any[] = [];
 
-	if (title !== undefined) { sets.push('title = ?'); vals.push(title); }
-	if (pinned !== undefined) { sets.push('pinned = ?'); vals.push(pinned ? 1 : 0); }
-	if (archived !== undefined) { sets.push('archived = ?'); vals.push(archived ? 1 : 0); }
+	if (title !== undefined) {
+		sets.push('title = ?');
+		vals.push(title);
+	}
+	if (pinned !== undefined) {
+		sets.push('pinned = ?');
+		vals.push(pinned ? 1 : 0);
+	}
+	if (archived !== undefined) {
+		sets.push('archived = ?');
+		vals.push(archived ? 1 : 0);
+	}
 	sets.push('updated_at = ?');
 	vals.push(now);
 
@@ -29,7 +41,9 @@ export const PATCH: RequestHandler = async ({ params, request, locals, platform 
 		.bind(...vals)
 		.run();
 
-	return new Response(JSON.stringify({ ok: true }), { headers: { 'content-type': 'application/json' } });
+	return new Response(JSON.stringify({ ok: true }), {
+		headers: { 'content-type': 'application/json' }
+	});
 };
 
 export const DELETE: RequestHandler = async ({ params, locals, platform }) => {
@@ -39,7 +53,12 @@ export const DELETE: RequestHandler = async ({ params, locals, platform }) => {
 
 	await db.prepare(`DELETE FROM message WHERE chat_id = ?`).bind(params.id).run();
 	await db.prepare(`DELETE FROM chat_document WHERE chat_id = ?`).bind(params.id).run();
-	await db.prepare(`DELETE FROM chat WHERE id = ? AND user_id = ?`).bind(params.id, locals.user.id).run();
+	await db
+		.prepare(`DELETE FROM chat WHERE id = ? AND user_id = ?`)
+		.bind(params.id, locals.user.id)
+		.run();
 
-	return new Response(JSON.stringify({ ok: true }), { headers: { 'content-type': 'application/json' } });
+	return new Response(JSON.stringify({ ok: true }), {
+		headers: { 'content-type': 'application/json' }
+	});
 };

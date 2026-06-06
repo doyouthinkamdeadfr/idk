@@ -79,8 +79,7 @@
 		<Reveal progress={sectionProgress} stagger={0.16}>
 			<div class="mx-auto mt-8 max-w-xs rounded-full bg-accent-primary/10 px-8 py-4 text-center">
 				<span class="text-lg font-bold text-accent-primary">
-					{$traditional > 0 && $memoryRag > 0 ? Math.round($traditional / $memoryRag) : 0}x
-					faster
+					{$traditional > 0 && $memoryRag > 0 ? Math.round($traditional / $memoryRag) : 0}x faster
 				</span>
 			</div>
 		</Reveal>

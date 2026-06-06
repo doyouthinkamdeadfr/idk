@@ -17,15 +17,49 @@ function getEnv(platform: any) {
 }
 
 export const GET: RequestHandler = async ({ request, platform }) => {
-	const { DB, discord, ghId, ghSecret, polarAccessToken, polarWebhookSecret, polarProMonthlyId, polarProAnnualId } = getEnv(platform);
+	const {
+		DB,
+		discord,
+		ghId,
+		ghSecret,
+		polarAccessToken,
+		polarWebhookSecret,
+		polarProMonthlyId,
+		polarProAnnualId
+	} = getEnv(platform);
 	if (!DB) return new Response('Database not found', { status: 500 });
-	const auth = createAuth(DB, { discord, ghId, ghSecret, polarAccessToken, polarWebhookSecret, polarProMonthlyId, polarProAnnualId });
+	const auth = createAuth(DB, {
+		discord,
+		ghId,
+		ghSecret,
+		polarAccessToken,
+		polarWebhookSecret,
+		polarProMonthlyId,
+		polarProAnnualId
+	});
 	return auth.handler(request);
 };
 
 export const POST: RequestHandler = async ({ request, platform }) => {
-	const { DB, discord, ghId, ghSecret, polarAccessToken, polarWebhookSecret, polarProMonthlyId, polarProAnnualId } = getEnv(platform);
+	const {
+		DB,
+		discord,
+		ghId,
+		ghSecret,
+		polarAccessToken,
+		polarWebhookSecret,
+		polarProMonthlyId,
+		polarProAnnualId
+	} = getEnv(platform);
 	if (!DB) return new Response('Database not found', { status: 500 });
-	const auth = createAuth(DB, { discord, ghId, ghSecret, polarAccessToken, polarWebhookSecret, polarProMonthlyId, polarProAnnualId });
+	const auth = createAuth(DB, {
+		discord,
+		ghId,
+		ghSecret,
+		polarAccessToken,
+		polarWebhookSecret,
+		polarProMonthlyId,
+		polarProAnnualId
+	});
 	return auth.handler(request);
 };

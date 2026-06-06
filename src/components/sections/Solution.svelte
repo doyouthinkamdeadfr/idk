@@ -5,10 +5,16 @@
 	let { sectionProgress = 0 } = $props();
 </script>
 
-<section class="relative flex min-h-screen w-full items-center overflow-hidden bg-accent-primary/5 px-8 md:px-16">
+<section
+	class="relative flex min-h-screen w-full items-center overflow-hidden bg-accent-primary/5 px-8 md:px-16"
+>
 	<div class="pointer-events-none absolute inset-0" aria-hidden="true">
-		<div class="absolute -top-20 -left-20 h-96 w-96 rounded-full bg-accent-secondary/5 blur-3xl"></div>
-		<div class="absolute -bottom-20 -right-20 h-72 w-72 rounded-full bg-accent-primary/5 blur-3xl"></div>
+		<div
+			class="absolute -top-20 -left-20 h-96 w-96 rounded-full bg-accent-secondary/5 blur-3xl"
+		></div>
+		<div
+			class="absolute -right-20 -bottom-20 h-72 w-72 rounded-full bg-accent-primary/5 blur-3xl"
+		></div>
 	</div>
 
 	<div class="relative mx-auto w-full max-w-6xl text-center">

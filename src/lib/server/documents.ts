@@ -20,7 +20,9 @@ export async function ingestLink(
 
 export function getMimeType(name: string, buffer: ArrayBuffer): string {
 	const arr = new Uint8Array(buffer.slice(0, 4));
-	const hex = Array.from(arr).map(b => b.toString(16).padStart(2, '0')).join('');
+	const hex = Array.from(arr)
+		.map((b) => b.toString(16).padStart(2, '0'))
+		.join('');
 
 	if (hex.startsWith('89504e47')) return 'image/png';
 	if (hex.startsWith('ffd8')) return 'image/jpeg';

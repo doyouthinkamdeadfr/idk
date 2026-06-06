@@ -43,7 +43,11 @@ body {
 	padding: 0;
 	background-color: var(--color-bg-primary);
 	color: var(--color-text-primary);
-	font-family: 'Inter', system-ui, -apple-system, sans-serif;
+	font-family:
+		'Inter',
+		system-ui,
+		-apple-system,
+		sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }

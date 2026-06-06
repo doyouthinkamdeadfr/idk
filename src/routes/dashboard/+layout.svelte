@@ -13,7 +13,7 @@
 
 <div class="flex h-screen overflow-hidden bg-bg-primary">
 	<Sidebar open={sidebarOpen} ontoggle={toggleSidebar} />
-	<div class="flex flex-1 flex-col min-w-0">
+	<div class="flex min-w-0 flex-1 flex-col">
 		<TopBar />
 		<main class="flex-1 overflow-y-auto bg-bg-primary">
 			{@render children()}

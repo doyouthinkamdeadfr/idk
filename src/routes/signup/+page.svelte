@@ -46,7 +46,9 @@
 
 <div class="flex min-h-screen items-center justify-center bg-bg-primary px-6">
 	<div class="w-full max-w-sm">
-		<a href="/" class="mb-8 block text-center text-2xl font-bold tracking-tight text-text-primary">Memory</a>
+		<a href="/" class="mb-8 block text-center text-2xl font-bold tracking-tight text-text-primary"
+			>Memory</a
+		>
 
 		{#if error}
 			<div class="mb-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">{error}</div>
@@ -55,9 +57,17 @@
 			<div class="mb-4 rounded-lg bg-green-50 px-4 py-3 text-sm text-green-600">{success}</div>
 		{/if}
 
-		<form onsubmit={(e) => { e.preventDefault(); handleSignup(); }} class="space-y-4">
+		<form
+			onsubmit={(e) => {
+				e.preventDefault();
+				handleSignup();
+			}}
+			class="space-y-4"
+		>
 			<div>
-				<label for="name" class="text-xs font-semibold tracking-widest text-text-muted uppercase">Name</label>
+				<label for="name" class="text-xs font-semibold tracking-widest text-text-muted uppercase"
+					>Name</label
+				>
 				<input
 					id="name"
 					type="text"
@@ -68,7 +78,9 @@
 				/>
 			</div>
 			<div>
-				<label for="email" class="text-xs font-semibold tracking-widest text-text-muted uppercase">Email</label>
+				<label for="email" class="text-xs font-semibold tracking-widest text-text-muted uppercase"
+					>Email</label
+				>
 				<input
 					id="email"
 					type="email"
@@ -79,7 +91,10 @@
 				/>
 			</div>
 			<div>
-				<label for="password" class="text-xs font-semibold tracking-widest text-text-muted uppercase">Password</label>
+				<label
+					for="password"
+					class="text-xs font-semibold tracking-widest text-text-muted uppercase">Password</label
+				>
 				<input
 					id="password"
 					type="password"
@@ -92,7 +107,7 @@
 			<button
 				type="submit"
 				disabled={loading}
-				class="w-full rounded-full bg-accent-primary px-5 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-accent-primary/90 disabled:opacity-50 active:scale-95"
+				class="w-full rounded-full bg-accent-primary px-5 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-accent-primary/90 active:scale-95 disabled:opacity-50"
 			>
 				{loading ? 'Creating account...' : 'Create account'}
 			</button>
@@ -109,9 +124,12 @@
 				<button
 					onclick={() => handleOAuth(id)}
 					disabled={loading}
-					class="flex items-center justify-center gap-2 rounded-full border border-border-subtle px-5 py-2.5 text-sm font-medium text-text-primary transition-all duration-200 hover:border-accent-primary hover:text-accent-primary disabled:opacity-50 active:scale-95"
+					class="flex items-center justify-center gap-2 rounded-full border border-border-subtle px-5 py-2.5 text-sm font-medium text-text-primary transition-all duration-200 hover:border-accent-primary hover:text-accent-primary active:scale-95 disabled:opacity-50"
 				>
-					<span class="flex h-5 w-5 items-center justify-center rounded text-xs font-bold bg-accent-primary/10 text-accent-primary">{icon}</span>
+					<span
+						class="flex h-5 w-5 items-center justify-center rounded bg-accent-primary/10 text-xs font-bold text-accent-primary"
+						>{icon}</span
+					>
 					{label}
 				</button>
 			{/each}

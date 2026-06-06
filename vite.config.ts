@@ -7,14 +7,14 @@ export default defineConfig({
 	plugins: [tailwindcss(), sveltekit()],
 	resolve: {
 		alias: {
-			'$components': path.resolve('./src/components')
+			$components: path.resolve('./src/components')
 		}
 	},
 	server: {
 		watch: {
 			usePolling: true,
-			interval: 500,
+			interval: 500
 		},
-		hmr: true,
+		hmr: true
 	}
 });

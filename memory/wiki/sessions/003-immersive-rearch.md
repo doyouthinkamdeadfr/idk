@@ -8,9 +8,11 @@ created: 2026-05-28
 ## Date: 2026-05-28
 
 ## Trigger
+
 After building all animated sections, user identified the site still felt like a "nice animated page" rather than an immersive experience. The 3D was a background decoration, not the environment you move through. References: sidewave.it, landonorris.com.
 
 ## Decisions Made
+
 - **Replace @threlte with raw Three.js** for the main 3D scene — gives full control over post-processing via EffectComposer, camera spline paths, and avoids fighting Threlte's auto-render loop
 - **Camera follows CatmullRomCurve3 spline** with 9 waypoints (one per section) — scroll moves camera through 3D space, not just triggers animations
 - **Post-processing pipeline**: UnrealBloomPass + RGBShiftShader (chromatic aberration) + VignetteShader — the single highest visual impact change
@@ -21,10 +23,12 @@ After building all animated sections, user identified the site still felt like a
 - **Removed**: @threlte from scene rendering, SectionDividers (no longer relevant in immersive 3D), clipReveal utility, splitText utility, scrollReveal utility
 
 ## Stack Changes
+
 - **Removed**: @threlte/core, @threlte/extras (no longer drive the scene — kept installed for potential future use)
 - **Still used**: GSAP (DOM animations), Lenis (smooth scroll), Rive (navbar hamburger)
 
 ## New Files Created
+
 - `src/lib/sceneRefs.ts` — shared Three.js camera + scene references
 - `src/lib/animations/cameraPath.ts` — 9-waypoint CatmullRomCurve3 spline
 - `src/lib/animations/particleShapes.ts` — 9 shape generators for particle morphing
@@ -34,6 +38,7 @@ After building all animated sections, user identified the site still felt like a
 - `src/components/ui/Preloader.svelte` — canvas-drawn neon ring preloader
 
 ## Files Modified
+
 - `src/routes/+layout.svelte` — wire Preloader + TextOverlay, maintain Lenis
 - `src/routes/+page.svelte` — remove SectionDividers
 - `src/components/three/Neon3DScene.svelte` — rewrite to raw Three.js + EffectComposer
@@ -44,6 +49,7 @@ After building all animated sections, user identified the site still felt like a
 - `src/lib/animations/scroll3d.ts` — add scrollVelocity store
 
 ## Files Deleted
+
 - `src/components/three/SceneContent.svelte` — replaced by SceneContent.ts (imperative)
 - `src/components/ui/SectionDivider.svelte` — no longer relevant
 - `src/lib/animations/clipReveal.ts` — unused
@@ -51,17 +57,19 @@ After building all animated sections, user identified the site still felt like a
 - `src/lib/animations/splitText.ts` — unused
 
 ## Architecture Shift
-| Layer | Before | After |
-|-------|--------|-------|
-| 3D Engine | @threlte components | Raw Three.js + EffectComposer |
-| Camera | Lerp Z between states | 9-point CatmullRom spline |
-| Post-processing | None (CSS box-shadow) | UnrealBloomPass + CA + Vignette |
-| Particles | One shape, color changes | 9 morphing shapes |
-| Headlines | DOM + GSAP split/clip | 3D-projected DOM text |
-| Scroll feel | Section triggers | Velocity-responsive intensity |
-| Entrance | Page appears | 2.5s orchestrated reveal |
+
+| Layer           | Before                   | After                           |
+| --------------- | ------------------------ | ------------------------------- |
+| 3D Engine       | @threlte components      | Raw Three.js + EffectComposer   |
+| Camera          | Lerp Z between states    | 9-point CatmullRom spline       |
+| Post-processing | None (CSS box-shadow)    | UnrealBloomPass + CA + Vignette |
+| Particles       | One shape, color changes | 9 morphing shapes               |
+| Headlines       | DOM + GSAP split/clip    | 3D-projected DOM text           |
+| Scroll feel     | Section triggers         | Velocity-responsive intensity   |
+| Entrance        | Page appears             | 2.5s orchestrated reveal        |
 
 ## Current Section Status
+
 - Hero → (headline in 3D, CTAs in DOM)
 - Brands → Marquee (DOM, unchanged)
 - Features → (labels in 3D, cards in DOM)
@@ -73,9 +81,11 @@ After building all animated sections, user identified the site still felt like a
 - Footer → (DOM, unchanged)
 
 ## Build Verification
+
 `bun run build` passes cleanly.
 
 ## Todos Completed
+
 - [x] Create cameraPath.ts, particleShapes.ts, sceneRefs.ts
 - [x] Create PostProcessing.ts + SceneContent.ts (imperative)
 - [x] Rewrite Neon3DScene.svelte (raw Three.js + RAF + EffectComposer)
@@ -89,6 +99,7 @@ After building all animated sections, user identified the site still felt like a
 - [x] Update memory files
 
 ## Remaining / Next Steps
+
 - [x] Fix black page (SceneContent ref error, preloader never disappeared, entrance never ran)
 - [x] Fix TextOverlay (local temp camera, correct anchor positions, section-based visibility, neon glow styles)
 - [x] Dramatic camera path (z=6→30, 5 intermediate control points, wider lateral sweeps)

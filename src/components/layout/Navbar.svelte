@@ -50,9 +50,7 @@
 				class="hidden text-sm text-text-muted transition-colors hover:text-accent-primary md:block"
 				>Benchmarks</a
 			>
-			<a
-				href="/pricing"
-				class="text-sm text-text-muted transition-colors hover:text-accent-primary"
+			<a href="/pricing" class="text-sm text-text-muted transition-colors hover:text-accent-primary"
 				>Pricing</a
 			>
 			<a

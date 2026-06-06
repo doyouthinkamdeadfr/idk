@@ -40,10 +40,7 @@
 		<Reveal progress={sectionProgress} stagger={0.08}>
 			<div class="mt-16 grid gap-0 md:grid-cols-3">
 				{#each steps as step, i}
-					<div
-						data-step={i}
-						class="relative p-8 transition-all duration-500 md:p-12"
-					>
+					<div data-step={i} class="relative p-8 transition-all duration-500 md:p-12">
 						<div
 							class="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-full text-xl font-bold transition-all duration-500 {activeStep >=
 							i
@@ -57,7 +54,8 @@
 
 						{#if i < steps.length - 1}
 							<div
-								class="absolute top-1/2 right-0 hidden h-0.5 w-8 -translate-y-1/2 transition-all duration-500 md:block {activeStep >= i
+								class="absolute top-1/2 right-0 hidden h-0.5 w-8 -translate-y-1/2 transition-all duration-500 md:block {activeStep >=
+								i
 									? 'bg-accent-primary'
 									: 'bg-border-subtle'}"
 							></div>
@@ -66,7 +64,9 @@
 				{/each}
 			</div>
 
-			<div class="mx-auto mt-4 flex h-1.5 w-full max-w-md items-center gap-2 rounded-full bg-border-subtle p-0.5">
+			<div
+				class="mx-auto mt-4 flex h-1.5 w-full max-w-md items-center gap-2 rounded-full bg-border-subtle p-0.5"
+			>
 				{#each steps as _, i}
 					<div
 						class="h-full flex-1 rounded-full transition-all duration-500 {activeStep >= i

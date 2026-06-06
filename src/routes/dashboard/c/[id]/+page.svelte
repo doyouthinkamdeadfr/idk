@@ -36,15 +36,17 @@
 	// Load existing messages
 	$effect(() => {
 		if (chatId && !loaded) {
-			fetch(`/api/chats/${chatId}/messages`).then(r => r.json()).then((data) => {
-				messages = data.map((m: any) => ({
-					role: m.role,
-					content: m.content,
-					sources: m.sources ? JSON.parse(m.sources) : undefined,
-					attachments: m.attachments ? JSON.parse(m.attachments) : undefined
-				}));
-				loaded = true;
-			});
+			fetch(`/api/chats/${chatId}/messages`)
+				.then((r) => r.json())
+				.then((data) => {
+					messages = data.map((m: any) => ({
+						role: m.role,
+						content: m.content,
+						sources: m.sources ? JSON.parse(m.sources) : undefined,
+						attachments: m.attachments ? JSON.parse(m.attachments) : undefined
+					}));
+					loaded = true;
+				});
 		}
 	});
 
@@ -54,15 +56,24 @@
 		return '\u{1F4C4}';
 	}
 
-	function makeUserMsg(payload: { text: string; attachments: { type: string; name: string }[] }): Msg {
+	function makeUserMsg(payload: {
+		text: string;
+		attachments: { type: string; name: string }[];
+	}): Msg {
 		return {
 			role: 'user',
 			content: payload.text || '(attachment only)',
-			attachments: payload.attachments.length > 0 ? payload.attachments.map(a => ({ type: a.type, name: a.name })) : undefined
+			attachments:
+				payload.attachments.length > 0
+					? payload.attachments.map((a) => ({ type: a.type, name: a.name }))
+					: undefined
 		};
 	}
 
-	async function send(payload: { text: string; attachments: { type: string; name: string; file?: File; url?: string; hash?: string }[] }) {
+	async function send(payload: {
+		text: string;
+		attachments: { type: string; name: string; file?: File; url?: string; hash?: string }[];
+	}) {
 		isStreaming = true;
 
 		messages = [...messages, makeUserMsg(payload)];
@@ -72,8 +83,8 @@
 			const form = new FormData();
 			form.set('text', payload.text);
 			if (payload.attachments.length > 0) {
-				const files = payload.attachments.filter(a => a.file);
-				const links = payload.attachments.filter(a => a.url).map(a => a.url);
+				const files = payload.attachments.filter((a) => a.file);
+				const links = payload.attachments.filter((a) => a.url).map((a) => a.url);
 				for (const f of files) {
 					form.append('files[]', f.file!, f.name);
 					form.append('hashes[]', f.hash ?? '');
@@ -95,7 +106,10 @@
 					},
 					onDone(data) {
 						statusMessage = null;
-						messages = [...messages.slice(0, -1), { role: 'assistant', content: assistantContent, sources: data.sources }];
+						messages = [
+							...messages.slice(0, -1),
+							{ role: 'assistant', content: assistantContent, sources: data.sources }
+						];
 						isStreaming = false;
 					},
 					onError(err) {
@@ -123,12 +137,16 @@
 				<div class="flex {msg.role === 'user' ? 'justify-end' : 'justify-start'}">
 					<div class="max-w-[80%] space-y-2">
 						<div
-							class="rounded-2xl px-4 py-3 text-sm {msg.role === 'user' ? 'bg-accent-primary text-white' : 'bg-white border border-border-subtle text-text-primary'}"
+							class="rounded-2xl px-4 py-3 text-sm {msg.role === 'user'
+								? 'bg-accent-primary text-white'
+								: 'border border-border-subtle bg-white text-text-primary'}"
 						>
 							{#if msg.attachments && msg.attachments.length > 0}
 								<div class="mb-2 flex flex-wrap gap-1.5">
 									{#each msg.attachments as att}
-										<span class="inline-flex items-center gap-1 rounded-md bg-white/20 px-2 py-0.5 text-[11px]">
+										<span
+											class="inline-flex items-center gap-1 rounded-md bg-white/20 px-2 py-0.5 text-[11px]"
+										>
 											{getAttachmentEmoji(att.type)}
 											{att.name}
 										</span>
@@ -144,7 +162,9 @@
 						{#if msg.sources && msg.sources.length > 0}
 							<div class="flex flex-wrap gap-1.5">
 								{#each msg.sources as source}
-									<span class="rounded-full bg-bg-primary px-2 py-0.5 text-[10px] text-text-muted">{source.name}</span>
+									<span class="rounded-full bg-bg-primary px-2 py-0.5 text-[10px] text-text-muted"
+										>{source.name}</span
+									>
 								{/each}
 							</div>
 						{/if}

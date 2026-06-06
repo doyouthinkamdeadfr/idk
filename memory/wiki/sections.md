@@ -13,15 +13,15 @@ sources:
 
 ## Section list
 
-| # | Section | Background | Key elements |
-|---|---------|------------|--------------|
-| 0 | Hero | `#f7f5f0` | 2D Canvas network graph (30 nodes), animated headline char-stagger, CTA buttons, scroll indicator |
-| 1 | Problem | `#f0ece4` | Parallax blurred orbs (background), 3 pain-point cards with accent border-left, parallax columns |
-| 2 | Solution | `#faf2ea` | 3 tweened stat counters (50K+ docs, 99.7% accuracy, 2M+ queries), animated on intersection |
-| 3 | HowItWorks | `#f7f5f0` | 3-step flow (Connect → Retrieve → Answer), step number highlight on scroll progress |
-| 4 | Benchmarks | `#faf2ea` | Speed comparison (2.3s vs 47ms), tweened bar fill animation, TiltCard with glow |
-| 5 | Pricing | `#f7f5f0` | 3 tiers (Free $0, Pro $29/mo, Enterprise Custom), monthly/annual toggle, Polar checkout |
-| 6 | CTA | `#faf2ea` | Gradient background, heading + CTA buttons, footer merged into same section |
+| #   | Section    | Background | Key elements                                                                                      |
+| --- | ---------- | ---------- | ------------------------------------------------------------------------------------------------- |
+| 0   | Hero       | `#f7f5f0`  | 2D Canvas network graph (30 nodes), animated headline char-stagger, CTA buttons, scroll indicator |
+| 1   | Problem    | `#f0ece4`  | Parallax blurred orbs (background), 3 pain-point cards with accent border-left, parallax columns  |
+| 2   | Solution   | `#faf2ea`  | 3 tweened stat counters (50K+ docs, 99.7% accuracy, 2M+ queries), animated on intersection        |
+| 3   | HowItWorks | `#f7f5f0`  | 3-step flow (Connect → Retrieve → Answer), step number highlight on scroll progress               |
+| 4   | Benchmarks | `#faf2ea`  | Speed comparison (2.3s vs 47ms), tweened bar fill animation, TiltCard with glow                   |
+| 5   | Pricing    | `#f7f5f0`  | 3 tiers (Free $0, Pro $29/mo, Enterprise Custom), monthly/annual toggle, Polar checkout           |
+| 6   | CTA        | `#faf2ea`  | Gradient background, heading + CTA buttons, footer merged into same section                       |
 
 ## Color palette (Warm + Light)
 

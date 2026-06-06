@@ -8,6 +8,7 @@ created: 2026-05-28
 ## Date: 2026-05-28
 
 ## Decisions Made
+
 - Use SvelteKit + TypeScript over TanStack Start
 - Use @threlte for 3D (not React Three Fiber)
 - Use Lenis for smooth scroll + GSAP ScrollTrigger
@@ -17,6 +18,7 @@ created: 2026-05-28
 - Future: Supabase, Polar.sh, Supermemory API
 
 ## What Was Built
+
 - memory/ folder structure (plan.md, tech-stack.md, decisions.md, sessions/)
 - Git repo initialized
 - SvelteKit project scaffolded with `bun create svelte`
@@ -38,7 +40,9 @@ created: 2026-05-28
 - Build verified: `bun run build` passes
 
 ## Todos Completed
+
 All 18 todos from the initial plan completed:
+
 - [x] Check/install Git
 - [x] Create memory/ folder with plan, tech-stack, decisions, session files
 - [x] Scaffold SvelteKit project with bun
@@ -59,6 +63,7 @@ All 18 todos from the initial plan completed:
 - [x] bun run build to verify
 
 ## Remaining / Next Steps
+
 - Deploy to Cloudflare Workers (`bunx wrangler deploy`)
 - Phase 2: Supabase auth + Polar.sh subscriptions
 - Phase 3: Supermemory.ai API integration

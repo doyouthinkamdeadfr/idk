@@ -27,7 +27,7 @@
 
 	async function deleteDoc(id: string) {
 		await fetch(`/api/documents/${id}`, { method: 'DELETE' });
-		documents = documents.filter(d => d.id !== id);
+		documents = documents.filter((d) => d.id !== id);
 	}
 
 	async function uploadFiles() {
@@ -66,7 +66,7 @@
 	const typeIcons: Record<string, string> = {
 		file: '📄',
 		image: '🖼️',
-		link: '🔗',
+		link: '🔗'
 	};
 
 	function formatSize(bytes: number): string {
@@ -90,7 +90,7 @@
 		</div>
 		<button
 			onclick={uploadFiles}
-			class="rounded-full bg-accent-primary px-5 py-2 text-sm font-semibold text-white hover:bg-accent-primary/90 transition-all active:scale-95"
+			class="rounded-full bg-accent-primary px-5 py-2 text-sm font-semibold text-white transition-all hover:bg-accent-primary/90 active:scale-95"
 		>
 			+ Upload
 		</button>
@@ -98,15 +98,23 @@
 
 	<div class="mt-8 space-y-2">
 		{#each documents as doc (doc.id)}
-			<div class="flex items-center gap-4 rounded-2xl border border-border-subtle bg-white px-5 py-4 transition-shadow hover:shadow-sm">
+			<div
+				class="flex items-center gap-4 rounded-2xl border border-border-subtle bg-white px-5 py-4 transition-shadow hover:shadow-sm"
+			>
 				<span class="text-lg">{typeIcons[doc.type] || '📄'}</span>
-				<div class="flex-1 min-w-0">
+				<div class="min-w-0 flex-1">
 					<div class="flex items-center gap-2">
-						<p class="text-sm font-medium text-text-primary truncate">{doc.name}</p>
+						<p class="truncate text-sm font-medium text-text-primary">{doc.name}</p>
 						{#if doc.status === 'processing'}
-							<span class="inline-block h-3 w-3 rounded-full bg-amber-400 animate-pulse" title="Processing"></span>
+							<span
+								class="inline-block h-3 w-3 animate-pulse rounded-full bg-amber-400"
+								title="Processing"
+							></span>
 						{:else if doc.status === 'error'}
-							<span class="inline-block h-3 w-3 rounded-full bg-red-400" title={doc.error || 'Error'}></span>
+							<span
+								class="inline-block h-3 w-3 rounded-full bg-red-400"
+								title={doc.error || 'Error'}
+							></span>
 						{:else}
 							<span class="inline-block h-3 w-3 rounded-full bg-green-400" title="Ready"></span>
 						{/if}
@@ -117,10 +125,13 @@
 						{doc.status === 'error' ? ` · ${doc.error || 'processing failed'}` : ''}
 					</p>
 				</div>
-				<span class="rounded-full bg-bg-primary px-2.5 py-0.5 text-[10px] font-medium text-text-muted uppercase">{doc.type}</span>
+				<span
+					class="rounded-full bg-bg-primary px-2.5 py-0.5 text-[10px] font-medium text-text-muted uppercase"
+					>{doc.type}</span
+				>
 				<button
 					onclick={() => deleteDoc(doc.id)}
-					class="rounded-lg px-2 py-1 text-xs text-text-muted hover:text-red-500 hover:bg-red-50 transition-colors"
+					class="rounded-lg px-2 py-1 text-xs text-text-muted transition-colors hover:bg-red-50 hover:text-red-500"
 				>
 					Delete
 				</button>
