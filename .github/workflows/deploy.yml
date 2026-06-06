@@ -59,4 +59,4 @@ jobs:
       - uses: oven-sh/setup-bun@v2
       - run: bun install --frozen-lockfile
       - run: |
-          bunx --bun wrangler@3.0.0 d1 migrations apply DB --remote
+          bunx --bun wrangler@3.0.0 d1 migrations apply DB
