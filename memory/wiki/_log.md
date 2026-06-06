@@ -132,3 +132,10 @@ Removed `[ai]` binding from wrangler.toml and `Ai` type declarations.
 Also added archived chats view to sidebar — "More → Archived chats" toggle with "Active chats" back link.
 
 Created `memory/wiki/rag-free-models.md`.
+
+## [2026-06-06] plan | Docker CI + pencil.dev frontend refactor
+
+- Replaced all JS tooling in GitHub Actions with Docker — CI now uses `docker build` + `docker run` only
+- Created `Dockerfile` and `.dockerignore` at project root
+- Updated `ci.yml` and `deploy.yml` workflows (single sequential jobs, no `setup-bun`/`bun install`)
+- Planned frontend refactor with [pencil.dev](https://pencil.dev) after Docker is settled

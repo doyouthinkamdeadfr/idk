@@ -68,8 +68,13 @@ Layout: Navbar (scrolled state detection), ProgressBar (scroll progress)
 - Text muted: `#8a857c`
 - Border subtle: `rgba(28, 26, 21, 0.08)`
 
+## Completed
+
+- **Docker CI** (2026-06-06): Replaced all JS tooling setup in GitHub Actions with Docker. CI now runs `docker build` + `docker run` — no `setup-bun`, no `bun install` in CI.
+
 ## Future Work
 
+- **pencil.dev frontend refactor**: After Docker CI is settled, refigure the frontend with [pencil.dev](https://pencil.dev)
 - Mobile performance optimization
 - Accessibility pass (prefers-reduced-motion, aria labels)
 - RAG API integration (supermemory.ai)

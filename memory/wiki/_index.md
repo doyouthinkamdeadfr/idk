@@ -54,4 +54,4 @@ See `../raw/` — no sources ingested yet.
 
 ---
 
-**Stats**: 13 wiki pages, 5 sessions, 0 components, 0 concepts, 0 raw sources
+**Stats**: 13 wiki pages, 5 sessions, 0 components, 0 concepts, 0 raw sources. Last action: 2026-06-06 — Docker CI + pencil.dev plan

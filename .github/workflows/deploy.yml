@@ -9,54 +9,30 @@ env:
   CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
 jobs:
-  lint:
-    name: Lint
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
-      - run: bun install --frozen-lockfile
-      - run: bun run lint
 
-  typecheck:
-    name: Type Check
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
-      - run: bun install --frozen-lockfile
-      - run: bun run check
+      - run: docker build -t app .
 
-  unit-tests:
-    name: Unit Tests
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
-      - run: bun install --frozen-lockfile
-      - run: bun run test:unit
+      - run: docker run app bun run lint
+      - run: docker run app bun run check
+      - run: docker run app bun run test:unit
+      - run: docker run app bun run build
 
-  build-and-deploy:
-    name: Build & Deploy
-    needs: [lint, typecheck, unit-tests]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
-      - run: bun install --frozen-lockfile
-      - run: bun run build
-      - run: |
-          bunx --bun wrangler@3.0.0 pages deploy .svelte-kit/cloudflare \
+      - name: Deploy
+        run: |
+          docker run \
+            -e CLOUDFLARE_API_TOKEN \
+            -e CLOUDFLARE_ACCOUNT_ID \
+            app bunx wrangler pages deploy .svelte-kit/cloudflare \
             --project-name memory \
             --branch main
 
-  migrate-d1:
-    name: Run D1 Migrations
-    needs: [build-and-deploy]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
-      - run: bun install --frozen-lockfile
-      - run: |
-          bunx --bun wrangler@3.0.0 d1 migrations apply DB
+      - name: Run D1 migrations
+        run: |
+          docker run \
+            -e CLOUDFLARE_API_TOKEN \
+            -e CLOUDFLARE_ACCOUNT_ID \
+            app bunx wrangler d1 migrations apply DB
