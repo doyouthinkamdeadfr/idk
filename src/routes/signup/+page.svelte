@@ -18,7 +18,7 @@
 			name
 		});
 		if (err) {
-			error = err.message;
+			error = err.message ?? '';
 		} else {
 			window.location.href = '/dashboard';
 		}
@@ -38,7 +38,7 @@
 			callbackURL: '/dashboard'
 		});
 		if (err) {
-			error = err.message;
+			error = err.message ?? '';
 			loading = false;
 		}
 	}

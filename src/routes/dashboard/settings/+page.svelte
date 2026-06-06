@@ -14,7 +14,7 @@
 	});
 
 	const isPro = $derived(
-		customerState?.subscriptions?.some((s: any) => s.status === 'active') ?? false
+		customerState?.activeSubscriptions?.some((s: any) => s.status === 'active') ?? false
 	);
 
 	async function handleUpgrade() {

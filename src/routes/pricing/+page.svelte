@@ -113,7 +113,7 @@
 					<h3 class="text-xl font-semibold">{tier.name}</h3>
 					<div class="mt-4">
 						<span class="text-5xl font-bold">
-							{tier.name === 'Pro' ? (isAnnual ? tier.annualPrice : tier.monthlyPrice) : tier.price}
+							{(tier as any).name === 'Pro' ? (isAnnual ? (tier as any).annualPrice : (tier as any).monthlyPrice) : (tier as any).price}
 						</span>
 						{#if tier.period}
 							<span class="ml-1 text-sm text-text-muted">

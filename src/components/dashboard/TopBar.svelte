@@ -10,7 +10,7 @@
 	onMount(async () => {
 		try {
 			const { data } = await authClient.customer.state();
-			isPro = data?.subscriptions?.some((s: any) => s.status === 'active') ?? false;
+			isPro = data?.activeSubscriptions?.some((s: any) => s.status === 'active') ?? false;
 		} catch {}
 	});
 

@@ -21,7 +21,7 @@
 		error = '';
 		const { error: err } = await authClient.signIn.email({ email, password });
 		if (err) {
-			error = err.message;
+			error = err.message ?? '';
 			loading = false;
 		} else {
 			window.location.href = redirectTo;
@@ -36,7 +36,7 @@
 			callbackURL: redirectTo
 		});
 		if (err) {
-			error = err.message;
+			error = err.message ?? '';
 			loading = false;
 		}
 	}
