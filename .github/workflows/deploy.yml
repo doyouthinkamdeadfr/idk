@@ -36,8 +36,8 @@ jobs:
       - run: bun install --frozen-lockfile
       - run: bun run test:unit
 
-  build:
-    name: Build
+  build-and-deploy:
+    name: Build & Deploy
     needs: [lint, typecheck, unit-tests]
     runs-on: ubuntu-latest
     steps:
@@ -45,24 +45,6 @@ jobs:
       - uses: oven-sh/setup-bun@v2
       - run: bun install --frozen-lockfile
       - run: bun run build
-      - uses: actions/upload-artifact@v4
-        with:
-          name: build-output
-          path: .svelte-kit/cloudflare
-          if-no-files-found: error
-
-  deploy-production:
-    name: Deploy Production
-    needs: [build]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
-      - run: bun install --frozen-lockfile
-      - uses: actions/download-artifact@v4
-        with:
-          name: build-output
-          path: .svelte-kit/cloudflare
       - run: |
           bunx --bun wrangler@3.0.0 pages deploy .svelte-kit/cloudflare \
             --project-name memory \
@@ -70,7 +52,7 @@ jobs:
 
   migrate-d1:
     name: Run D1 Migrations
-    needs: [deploy-production]
+    needs: [build-and-deploy]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
