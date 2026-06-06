@@ -1,0 +1,39 @@
+template: |
+  $CHANGES
+
+categories:
+  - title: 'CI/CD Improvements'
+    labels:
+      - 'ci'
+  - title: 'Frontend Changes'
+    labels:
+      - 'frontend'
+  - title: 'Backend Changes'
+    labels:
+      - 'backend'
+  - title: 'Database Changes'
+    labels:
+      - 'database'
+  - title: 'Testing Improvements'
+    labels:
+      - 'tests'
+  - title: 'Dependency Updates'
+    labels:
+      - 'dependencies'
+  - title: 'Other Changes'
+    labels:
+      - '*'
+
+change-template: '- $TITLE (#$NUMBER)'
+change-title-escapes: '\<*_&'
+version-resolver:
+  major:
+    labels:
+      - 'major'
+  minor:
+    labels:
+      - 'minor'
+  patch:
+    labels:
+      - 'patch'
+  default: patch

@@ -1,0 +1,23 @@
+ci:
+  - .github/**/*
+
+frontend:
+  - src/**/*.svelte
+  - src/**/*.css
+  - src/components/**/*
+
+backend:
+  - src/routes/api/**/*
+  - src/lib/server/**/*
+
+database:
+  - src/db/**/*
+  - migrations/**/*
+
+tests:
+  - src/**/*.test.*
+  - tests/**/*
+
+dependencies:
+  - package.json
+  - bun.lock
