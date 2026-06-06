@@ -113,16 +113,22 @@
 					<h3 class="text-xl font-semibold">{tier.name}</h3>
 					<div class="mt-4">
 						<span class="text-5xl font-bold">
-							{(tier as any).name === 'Pro' ? (isAnnual ? (tier as any).annualPrice : (tier as any).monthlyPrice) : (tier as any).price}
+							{(tier as any).name === 'Pro'
+								? isAnnual
+									? (tier as any).annualPrice
+									: (tier as any).monthlyPrice
+								: (tier as any).price}
 						</span>
-						{#if tier.period}
+						{#if (tier as any).period}
 							<span class="ml-1 text-sm text-text-muted">
-								/{typeof tier.period === 'function' ? tier.period() : tier.period}
+								/{typeof (tier as any).period === 'function'
+									? (tier as any).period()
+									: (tier as any).period}
 							</span>
 						{/if}
 					</div>
 					<ul class="mt-8 space-y-3" role="list">
-						{#each tier.features as feature}
+						{#each (tier as any).features as feature}
 							<li class="flex items-start gap-3 text-sm text-text-muted">
 								<span class="mt-0.5 shrink-0 text-accent-secondary">&#10003;</span>
 								{feature}

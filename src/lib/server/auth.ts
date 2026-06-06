@@ -60,7 +60,8 @@ export function createAuth(
 										polarSubscriptionId: sub.id,
 										polarProductId: sub.productId,
 										status: sub.status,
-										currentPeriodStart: sub.currentPeriodStart?.toISOString?.() ?? sub.currentPeriodStart,
+										currentPeriodStart:
+											sub.currentPeriodStart?.toISOString?.() ?? sub.currentPeriodStart,
 										currentPeriodEnd: sub.currentPeriodEnd?.toISOString?.() ?? sub.currentPeriodEnd,
 										cancelAtPeriodEnd: sub.cancelAtPeriodEnd ? 1 : 0,
 										createdAt: new Date().toISOString(),
@@ -70,8 +71,10 @@ export function createAuth(
 										target: subscription.polarSubscriptionId,
 										set: {
 											status: sub.status,
-											currentPeriodStart: sub.currentPeriodStart?.toISOString?.() ?? sub.currentPeriodStart,
-											currentPeriodEnd: sub.currentPeriodEnd?.toISOString?.() ?? sub.currentPeriodEnd,
+											currentPeriodStart:
+												sub.currentPeriodStart?.toISOString?.() ?? sub.currentPeriodStart,
+											currentPeriodEnd:
+												sub.currentPeriodEnd?.toISOString?.() ?? sub.currentPeriodEnd,
 											cancelAtPeriodEnd: sub.cancelAtPeriodEnd ? 1 : 0,
 											updatedAt: new Date().toISOString()
 										}
