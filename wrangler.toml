@@ -9,4 +9,8 @@ binding = "DB"
 database_name = "memory-auth"
 database_id = "cb358435-7124-4029-a6d9-76eea9316ae2"
 
-
+[env.preview]
+[[env.preview.d1_databases]]
+binding = "DB"
+database_name = "memory-auth-preview"
+database_id = "9fe331cc-a0e2-408c-a056-4c5a36940590"
